@@ -28,7 +28,7 @@ const { className } = Astro.props;
       const oddIndex = index % 2 === 0;
       const flexRow = oddIndex ? "midmd:flex-row-reverse" : "midmd:flex-row";
       const bgColor = oddIndex
-        ? "bg-orange-100 dark:bg-gray-800 "
+        ? "bg-gray-100 dark:bg-gray-800 "
         : "bg-transparent";
       return (
         <div class={`w-100 py-10 md:py-16 ${bgColor}`}>
