@@ -1,14 +1,13 @@
 ---
 import Service from "../cards/Service.astro";
 import Container from "../shared/Container.astro";
-import Paragraph from "../shared/Paragraph.astro";
 import Title from "../shared/Title.astro";
 import { services } from "../../utils/data.ts";
 
 type ServicesProps = {
   title: string;
   features: string[];
-  icon: string;
+  icon?: string;
 };
 
 export interface Props {

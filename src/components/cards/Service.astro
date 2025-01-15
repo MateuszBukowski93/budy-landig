@@ -4,7 +4,7 @@ import Paragraph from "../shared/Paragraph.astro";
 export interface Props {
   title: string;
   features: string[];
-  icon: string;
+  icon?: string;
 }
 
 const { title, features, icon } = Astro.props;
