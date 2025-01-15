@@ -1,0 +1,96 @@
+---
+import Container from "../shared/Container.astro";
+import Title from "../shared/Title.astro";
+
+const testimonials = [
+  {
+    text: "Świetna buda dla mojego psa! Solidnie wykonana i bardzo wygodna. Mój labrador od razu ją pokochał.",
+    userName: "Marek Kowalski",
+    product: "Duża Buda (70x100 cm)"
+  },
+  {
+    text: "Jestem pod wrażeniem jakości wykonania. Buda jest ocieplona i idealnie sprawdza się w chłodniejsze dni.",
+    userName: "Anna Nowak", 
+    product: "Średnia Buda (60x80 cm)"
+  },
+  {
+    text: "Profesjonalna obsługa i szybka realizacja zamówienia. Buda jest dokładnie taka jak na zdjęciach.",
+    userName: "Piotr Wiśniewski",
+    product: "Mała Buda 50 cm x 60 cm"
+  },
+  {
+    text: "Świetny stosunek jakości do ceny. Mój bernardyn ma wreszcie odpowiednie schronienie.",
+    userName: "Katarzyna Lewandowska",
+    product: "Bardzo Duża Buda (90x120 cm)"
+  },
+  {
+    text: "Świetna buda dla mojego psa! Solidnie wykonana i bardzo wygodna. Mój labrador od razu ją pokochał.",
+    userName: "Marek Kowalski",
+    product: "Duża Buda (70x100 cm)"
+  },
+  {
+    text: "Jestem pod wrażeniem jakości wykonania. Buda jest ocieplona i idealnie sprawdza się w chłodniejsze dni.",
+    userName: "Anna Nowak", 
+    product: "Średnia Buda (60x80 cm)"
+  },
+  {
+    text: "Profesjonalna obsługa i szybka realizacja zamówienia. Buda jest dokładnie taka jak na zdjęciach.",
+    userName: "Piotr Wiśniewski",
+    product: "Mała Buda 50 cm x 60 cm"
+  },
+  {
+    text: "Świetny stosunek jakości do ceny. Mój bernardyn ma wreszcie odpowiednie schronienie.",
+    userName: "Katarzyna Lewandowska",
+    product: "Bardzo Duża Buda (90x120 cm)"
+  }
+];
+---
+
+<section class="relative py-16">
+
+    <div class="relative overflow-hidden w-screen -mx-4 sm:-mx-6 lg:-mx-8
+    
+    
+    629">
+      <div id="testimonialCarousel" class="flex flex-nowrap gap-6 overflow-x-auto pb-8 snap-x snap-mandatory px-4 sm:px-6 lg:px-8 overflow-x-hidden">
+        {
+          testimonials.map((testimonial) => (
+            <div class="min-w-[300px] md:min-w-[400px] snap-start ">
+              <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg h-full">
+                <p class="text-gray-600 dark:text-gray-300 mb-6 italic">"{testimonial.text}"</p>
+                <div class="border-t pt-4">
+                  <h4 class="font-semibold text-heading-2">{testimonial.userName}</h4>
+                  <p class="text-primary dark:text-primary/90 text-sm">
+                    Zakupiony produkt: {testimonial.product}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+  </div>
+
+  <script>
+    const carousel = document.getElementById('testimonialCarousel');
+    let scrollAmount = 0;
+    const cardWidth = 400; // Width of each card including gap
+    const scrollSpeed = 2000; // Time in ms between each scroll
+
+    function autoScroll() {
+      if (carousel) {
+        scrollAmount += cardWidth;
+        if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
+          scrollAmount = 0;
+        }
+        carousel.scrollTo({
+          left: scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Start auto-scrolling
+    setInterval(autoScroll, scrollSpeed);
+  </script>
+</section>

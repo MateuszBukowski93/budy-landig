@@ -1,0 +1,91 @@
+---
+import { Image } from "astro:assets";
+import Container from "../shared/Container.astro";
+import Title from "../shared/Title.astro";
+
+import spotify from "../../assets/logos/spotify.png";
+import slack from "../../assets/logos/slack.png";
+import paypallogo from "../../assets/logos/paypallogo.png";
+import TestimonialsCarousel from "../blocks/TestimonialsCarousel.astro";
+
+const brands = [
+  {
+    id: 1,
+    name: "Spotify",
+    logo: spotify,
+  },
+  {
+    id: 2,
+    name: "Slack",
+    logo: slack,
+  },
+  {
+    id: 3,
+    name: "Paypal",
+    logo: paypallogo,
+  },
+  {
+    id: 4,
+    name: "Spotify",
+    logo: spotify,
+  },
+  {
+    id: 5,
+    name: "Slack",
+    logo: slack,
+  },
+  {
+    id: 6,
+    name: "Paypal",
+    logo: paypallogo,
+  },
+  {
+    id: 7,
+    name: "Spotify",
+    logo: spotify,
+  },
+  {
+    id: 8,
+    name: "Slack",
+    logo: slack,
+  },
+  {
+    id: 9,
+    name: "Paypal",
+    logo: paypallogo,
+  },
+  {
+    id: 10,
+    name: "Spotify",
+    logo: spotify,
+  },
+  {
+    id: 11,
+    name: "Slack",
+    logo: slack,
+  },
+  {
+    id: 12,
+    name: "Paypal",
+    logo: paypallogo,
+  },
+];
+
+export interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
+---
+
+<section class=`${className}`>
+  <Container className="">
+    <div class="text-center">
+      <Title>Dołącz do naszych zadowolonych klientów</Title>
+    </div>
+  </Container>
+  <div class="w-screen overflow-x-hidden">
+    <TestimonialsCarousel />
+  </div>
+</section>
+
