@@ -7,6 +7,7 @@ import spotify from "../../assets/logos/spotify.png";
 import slack from "../../assets/logos/slack.png";
 import paypallogo from "../../assets/logos/paypallogo.png";
 import TestimonialsCarousel from "../blocks/TestimonialsCarousel.astro";
+import GradiantText from "../shared/GradiantText.astro";
 
 const brands = [
   {
@@ -78,10 +79,10 @@ export interface Props {
 const { className } = Astro.props;
 ---
 
-<section class=`${className}`>
+<section class=`${className}` id="testimonials">
   <Container className="">
     <div class="text-center">
-      <Title>Dołącz do naszych zadowolonych klientów</Title>
+      <Title><GradiantText>Dołącz do naszych zadowolonych klientów</GradiantText></Title>
     </div>
   </Container>
   <div class="w-screen overflow-x-hidden">

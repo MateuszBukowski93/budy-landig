@@ -46,10 +46,18 @@ const services = [
     title: "Dodatkowe opcje",
     features: [
       "Ocieplenie 100 - 150zł",
-      "Niestandardowy kolor 100zł",
-      "taras 50 - 150zł",
-      "Wysyłka na terenie Polski 150-250zł",
-      "Wysyłka na terenie Europy 250 zł",
+      "Niestandardowy kolor 50zł",
+      "kurtyna do wejścia 50zł",
+      "Natychmiastowa Wysyłka kurierem 200zł",
+      "Dowóz przez nas 50zł za każde 100km ",
+    ],
+  },
+  {
+    title: "Płatność",
+    features: [
+      "Gotówką przy odbiorze",
+      "Przelew na konto",
+      "Blik",
     ],
   },
 ];
