@@ -7,8 +7,245 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Order">
     <main class="max-w-4xl mx-auto p-4">
         <h1 class="text-3xl font-bold text-heading-1 mb-8">Zamówienie</h1>
-        
-       
+        <script>
+            const prices = {
+                'Mała Buda': 450,
+                'Średnia Buda': 600, 
+                'Duża Buda': 700,
+                'Bardzo Duża Buda': 1000
+            };
+
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('.size-option').forEach(button => {
+                    const title = button.querySelector('h2').textContent;
+                    const priceElement = document.createElement('p');
+                    priceElement.className = 'mt-4 text-lg font-semibold text-primary';
+                    priceElement.textContent = `${prices[title]} zł`;
+                    button.appendChild(priceElement);
+                });
+            });
+        </script>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <button class="size-option p-6 border-2 border-gray-200 rounded-xl hover:border-primary focus:border-primary focus:outline-none transition-colors">
+                <h2 class="text-xl font-semibold text-heading-1 mb-2">Mała Buda</h2>
+                <p class="text-heading-3">50x60 cm</p>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Idealna dla małych psów do 10kg</p>
+            </button>
+
+            <button class="size-option p-6 border-2 border-gray-200 rounded-xl hover:border-primary focus:border-primary focus:outline-none transition-colors">
+                <h2 class="text-xl font-semibold text-heading-1 mb-2">Średnia Buda</h2>
+                <p class="text-heading-3">60x80 cm</p>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Odpowiednia dla psów średniej wielkości 10-25kg</p>
+            </button>
+
+            <button class="size-option p-6 border-2 border-gray-200 rounded-xl hover:border-primary focus:border-primary focus:outline-none transition-colors">
+                <h2 class="text-xl font-semibold text-heading-1 mb-2">Duża Buda</h2>
+                <p class="text-heading-3">70x100 cm</p>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Dla dużych psów 25-45kg</p>
+            </button>
+
+            <button class="size-option p-6 border-2 border-gray-200 rounded-xl hover:border-primary focus:border-primary focus:outline-none transition-colors">
+                <h2 class="text-xl font-semibold text-heading-1 mb-2">Bardzo Duża Buda</h2>
+                <p class="text-heading-3">90x120 cm</p>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Dla największych ras powyżej 45kg</p>
+            </button>
+        </div>
+        <div class="mt-12">
+            <h2 class="text-2xl font-semibold text-heading-1 mb-6">Opcje dodatkowe</h2>
+            
+            <div class="space-y-4">
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
+                    <input type="checkbox" id="insulation" class="w-5 h-5 text-primary rounded border-gray-300 focus:ring-primary">
+                    <div class="ml-4">
+                        <span class="font-medium text-heading-1">Ocieplenie</span>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Dodatkowa warstwa izolacyjna chroniąca przed zimnem i upałem</p>
+                        <span class="text-sm text-primary" id="insulation-price">100 zł</span>
+                    </div>
+                </label>
+
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
+                    <input type="checkbox" id="legs" class="w-5 h-5 text-primary rounded border-gray-300 focus:ring-primary">
+                    <div class="ml-4">
+                        <span class="font-medium text-heading-1">Nóżki</span>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Podnoszą budę nad poziom podłoża, chroniąc przed wilgocią</p>
+                        <span class="text-sm text-primary">50 zł</span>
+                    </div>
+                </label>
+
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
+                    <input type="checkbox" id="curtain" class="w-5 h-5 text-primary rounded border-gray-300 focus:ring-primary">
+                    <div class="ml-4">
+                        <span class="font-medium text-heading-1">Kurtyna</span>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Elastyczna zasłona chroniąca przed wiatrem i deszczem</p>
+                        <span class="text-sm text-primary">50 zł</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="mt-12">
+            <h2 class="text-2xl font-semibold text-heading-1 mb-6">Opcje dostawy</h2>
+            
+            <div class="space-y-4">
+                <label class="delivery-option flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
+                    <input type="radio" name="delivery" value="courier" class="w-5 h-5 text-primary border-gray-300 focus:ring-primary">
+                    <div class="ml-4">
+                        <span class="font-medium text-heading-1">Wysyłka kurierem</span>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Natychmiastowa wysyłka, płatność z góry</p>
+                        <span class="text-sm text-primary">200 zł</span>
+                    </div>
+                </label>
+
+                <label class="delivery-option flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
+                    <input type="radio" name="delivery" value="courier-cod" class="w-5 h-5 text-primary border-gray-300 focus:ring-primary">
+                    <div class="ml-4">
+                        <span class="font-medium text-heading-1">Wysyłka kurierem za pobraniem</span>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Natychmiastowa wysyłka, płatność przy odbiorze</p>
+                        <span class="text-sm text-primary">250 zł</span>
+                    </div>
+                </label>
+
+                <label class="delivery-option flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
+                    <input type="radio" name="delivery" value="company-delivery" class="w-5 h-5 text-primary border-gray-300 focus:ring-primary">
+                    <div class="ml-4">
+                        <span class="font-medium text-heading-1">Dowóz przez naszego pracownika</span>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">50 zł za każde rozpoczęte 100 km</p>
+                        <span class="text-sm text-primary">Cena zależna od odległości</span>
+                    </div>
+                </label>
+
+                <label class="delivery-option flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
+                    <input type="radio" name="delivery" value="pickup" class="w-5 h-5 text-primary border-gray-300 focus:ring-primary" checked>
+                    <div class="ml-4">
+                        <span class="font-medium text-heading-1">Odbiór osobisty</span>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Odbiór w miejscu produkcji</p>
+                        <span class="text-sm text-primary">0 zł</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+
+        <div class="mt-12 p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg">
+            <h2 class="text-2xl font-semibold text-heading-1 mb-6">Podsumowanie zamówienia</h2>
+            
+            <div class="space-y-4">
+                
+                <div class="selected-options">
+                    <h3 class="font-medium text-heading-2 mb-3">Wybrane opcje:</h3>
+                    <ul id="summary-list" class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400">
+                    </ul>
+                </div>
+
+                <div class="total mt-6 pt-4 border-t border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-semibold text-heading-1">Suma:</span>
+                        <span id="total-price" class="text-lg font-bold text-primary">0 zł</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function updateSummary() {
+                const summaryList = document.getElementById('summary-list');
+                const totalPriceElement = document.getElementById('total-price');
+                let total = 0;
+                summaryList.innerHTML = '';
+
+                // Get selected size
+                const selectedSize = document.querySelector('.size-option.border-primary');
+                if (selectedSize) {
+                    const sizeName = selectedSize.querySelector('h2').textContent;
+                    const sizePrice = parseInt(selectedSize.querySelector('.text-primary').textContent);
+                    summaryList.innerHTML += `<li>${sizeName} - ${sizePrice} zł</li>`;
+                    total += sizePrice;
+                }
+
+                // Check insulation
+                const insulation = document.getElementById('insulation');
+                if (insulation && insulation.checked) {
+                    const insulationPrice = parseInt(document.getElementById('insulation-price').textContent);
+                    summaryList.innerHTML += `<li>Ocieplenie - ${insulationPrice} zł</li>`;
+                    total += insulationPrice;
+                }
+
+                // Check curtain
+                const curtain = document.getElementById('curtain');
+                if (curtain && curtain.checked) {
+                    summaryList.innerHTML += `<li>Kurtyna - 50 zł</li>`;
+                    total += 50;
+                }
+
+                // Get selected delivery
+                const selectedDelivery = document.querySelector('input[name="delivery"]:checked');
+                if (selectedDelivery) {
+                    const deliveryLabel = selectedDelivery.closest('label');
+                    const deliveryName = deliveryLabel.querySelector('.font-medium').textContent;
+                    const deliveryPrice = deliveryLabel.querySelector('.text-primary').textContent;
+                    console.log({deliveryPrice, deliveryLabel,deliveryName});
+                    if (deliveryPrice !== 'Cena zależna od odległości') {
+                        const price = parseInt(deliveryPrice);
+                        summaryList.innerHTML += `<li>${deliveryName} - ${price} zł</li>`;
+                        total += price;
+                    } else {
+                        summaryList.innerHTML += `<li>${deliveryName} - ${deliveryPrice}</li>`;
+                    }
+                }
+
+                totalPriceElement.textContent = `${total} zł`;
+            }
+
+            // Add event listeners
+            document.querySelectorAll('.size-option').forEach(option => {
+                option.addEventListener('click', updateSummary);
+            });
+
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', updateSummary);
+            });
+
+            document.querySelectorAll('input[name="delivery"]').forEach(radio => {
+                radio.addEventListener('change', updateSummary);
+            });
+
+            // Initial update
+            updateSummary();
+        </script>
+        <script>
+            const sizeOptions = document.querySelectorAll('.size-option');
+            const insulationCheckbox = document.getElementById('insulation');
+            const insulationPrice = document.getElementById('insulation-price');
+            
+            function updateInsulationPrice() {
+                const selectedSize = document.querySelector('.size-option.border-primary');
+                if (selectedSize) {
+                    const isSmallHouse = selectedSize.querySelector('h2').textContent === 'Mała Buda';
+                    insulationPrice.textContent = isSmallHouse ? '100 zł' : '150 zł';
+                }
+            }
+
+            sizeOptions.forEach(option => {
+                option.addEventListener('click', updateInsulationPrice);
+            });
+        </script>
+
+        <script>
+            const sizeOptions = document.querySelectorAll('.size-option');
+            
+            sizeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove active class from all options
+                    sizeOptions.forEach(opt => {
+                        opt.classList.remove('border-primary');
+                        opt.classList.add('border-gray-200');
+                    });
+                    
+                    // Add active class to clicked option
+                    option.classList.remove('border-gray-200');
+                    option.classList.add('border-primary');
+                });
+            });
+        </script>
     </main>
 </Layout>
-F
