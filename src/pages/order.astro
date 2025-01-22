@@ -1,27 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+interface Prices {
+  [key: string]: number;
+}
+
+const prices: Prices = {
+  'Mała Buda': 450,
+  'Średnia Buda': 600,
+  'Duża Buda': 700,
+  'Bardzo Duża Buda': 1000
+};
 ---
-
-
 
 <Layout title="Order">
     <main class="max-w-4xl mx-auto p-4">
         <h1 class="text-3xl font-bold text-heading-1 mb-8">Zamówienie</h1>
-        <script>
-            const prices = {
-                'Mała Buda': 450,
-                'Średnia Buda': 600, 
-                'Duża Buda': 700,
-                'Bardzo Duża Buda': 1000
-            };
-
+        <script define:vars={{ prices }}>
             document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll('.size-option').forEach(button => {
-                    const title = button.querySelector('h2').textContent;
-                    const priceElement = document.createElement('p');
-                    priceElement.className = 'mt-4 text-lg font-semibold text-primary';
-                    priceElement.textContent = `${prices[title]} zł`;
-                    button.appendChild(priceElement);
+                    const title = button.querySelector('h2')?.textContent;
+                    if (title) {
+                        const priceElement = document.createElement('p');
+                        priceElement.className = 'mt-4 text-lg font-semibold text-primary';
+                        priceElement.textContent = `${prices[title]} zł`;
+                        button.appendChild(priceElement);
+                    }
                 });
             });
         </script>
@@ -150,29 +154,35 @@ import Layout from '../layouts/Layout.astro';
             function updateSummary() {
                 const summaryList = document.getElementById('summary-list');
                 const totalPriceElement = document.getElementById('total-price');
+                if (!summaryList || !totalPriceElement) return;
+
                 let total = 0;
                 summaryList.innerHTML = '';
 
                 // Get selected size
                 const selectedSize = document.querySelector('.size-option.border-primary');
                 if (selectedSize) {
-                    const sizeName = selectedSize.querySelector('h2').textContent;
-                    const sizePrice = parseInt(selectedSize.querySelector('.text-primary').textContent);
-                    summaryList.innerHTML += `<li>${sizeName} - ${sizePrice} zł</li>`;
-                    total += sizePrice;
+                    const sizeName = selectedSize.querySelector('h2')?.textContent;
+                    const priceText = selectedSize.querySelector('.text-primary')?.textContent;
+                    if (sizeName && priceText) {
+                        const sizePrice = parseInt(priceText);
+                        summaryList.innerHTML += `<li>${sizeName} - ${sizePrice} zł</li>`;
+                        total += sizePrice;
+                    }
                 }
 
                 // Check insulation
-                const insulation = document.getElementById('insulation');
-                if (insulation && insulation.checked) {
-                    const insulationPrice = parseInt(document.getElementById('insulation-price').textContent);
+                const insulation = document.getElementById('insulation') as HTMLInputElement;
+                const insulationPriceElement = document.getElementById('insulation-price');
+                if (insulation?.checked && insulationPriceElement?.textContent) {
+                    const insulationPrice = parseInt(insulationPriceElement.textContent);
                     summaryList.innerHTML += `<li>Ocieplenie - ${insulationPrice} zł</li>`;
                     total += insulationPrice;
                 }
 
                 // Check curtain
-                const curtain = document.getElementById('curtain');
-                if (curtain && curtain.checked) {
+                const curtain = document.getElementById('curtain') as HTMLInputElement;
+                if (curtain?.checked) {
                     summaryList.innerHTML += `<li>Kurtyna - 50 zł</li>`;
                     total += 50;
                 }
@@ -181,15 +191,17 @@ import Layout from '../layouts/Layout.astro';
                 const selectedDelivery = document.querySelector('input[name="delivery"]:checked');
                 if (selectedDelivery) {
                     const deliveryLabel = selectedDelivery.closest('label');
-                    const deliveryName = deliveryLabel.querySelector('.font-medium').textContent;
-                    const deliveryPrice = deliveryLabel.querySelector('.text-primary').textContent;
-                    console.log({deliveryPrice, deliveryLabel,deliveryName});
-                    if (deliveryPrice !== 'Cena zależna od odległości') {
-                        const price = parseInt(deliveryPrice);
-                        summaryList.innerHTML += `<li>${deliveryName} - ${price} zł</li>`;
-                        total += price;
-                    } else {
-                        summaryList.innerHTML += `<li>${deliveryName} - ${deliveryPrice}</li>`;
+                    const deliveryName = deliveryLabel?.querySelector('.font-medium')?.textContent;
+                    const deliveryPrice = deliveryLabel?.querySelector('.text-primary')?.textContent;
+                    
+                    if (deliveryLabel && deliveryName && deliveryPrice) {
+                        if (deliveryPrice !== 'Cena zależna od odległości') {
+                            const price = parseInt(deliveryPrice);
+                            summaryList.innerHTML += `<li>${deliveryName} - ${price} zł</li>`;
+                            total += price;
+                        } else {
+                            summaryList.innerHTML += `<li>${deliveryName} - ${deliveryPrice}</li>`;
+                        }
                     }
                 }
 
@@ -214,14 +226,17 @@ import Layout from '../layouts/Layout.astro';
         </script>
         <script>
             const sizeOptions = document.querySelectorAll('.size-option');
-            const insulationCheckbox = document.getElementById('insulation');
+            const insulationCheckbox = document.getElementById('insulation') as HTMLInputElement;
             const insulationPrice = document.getElementById('insulation-price');
             
             function updateInsulationPrice() {
                 const selectedSize = document.querySelector('.size-option.border-primary');
                 if (selectedSize) {
-                    const isSmallHouse = selectedSize.querySelector('h2').textContent === 'Mała Buda';
-                    insulationPrice.textContent = isSmallHouse ? '100 zł' : '150 zł';
+                    const heading = selectedSize.querySelector('h2');
+                    if (heading && insulationPrice) {
+                        const isSmallHouse = heading.textContent === 'Mała Buda';
+                        insulationPrice.textContent = isSmallHouse ? '100 zł' : '150 zł';
+                    }
                 }
             }
 
