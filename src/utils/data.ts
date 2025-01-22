@@ -94,62 +94,84 @@ const solutions = [
     img: howWeDo,
   },
 ];
-
 const faqs = [
   {
-    question: "How can social media marketing benefit my business?",
-    answer:
-      "Social media marketing can significantly benefit your business by increasing brand awareness, engaging your target audience, driving website traffic, and generating leads. It also allows for direct interaction with your customers, fostering brand loyalty and providing valuable insights into consumer behavior.",
+    question: "Jak długo trwa realizacja zamówienia?",
+    answer: "Standardowy czas realizacji zamówienia to 3-5 dni roboczych. W przypadku dodatkowych personalizacji może się on wydłużyć do 7-10 dni."
   },
   {
-    question: "What sets your agency apart from others?",
-    answer:
-      "Our agency stands out through a combination of tailored strategies, data-driven decision-making, and a commitment to client collaboration. We prioritize understanding your unique business goals and offer personalized solutions that deliver measurable results.",
+    question: "Czy budy są odporne na deszcz i inne warunki atmosferyczne?",
+    answer: "Tak, wszystkie nasze budy są impregnowane specjalnymi środkami, które chronią drewno przed wilgocią, deszczem i innymi warunkami atmosferycznymi. Dodatkowo, konstrukcja dachu zapewnia odpowiednie odprowadzanie wody."
   },
   {
-    question: "How do you measure the success of social media campaigns?",
-    answer:
-      "We employ a comprehensive approach to measure campaign success. This includes tracking key performance indicators (KPIs) such as engagement metrics, conversion rates, reach, and customer feedback. Our goal is to provide you with transparent and actionable insights into the effectiveness of your social media efforts.",
+    question: "Jak dobrać odpowiedni rozmiar budy dla mojego psa?",
+    answer: "Rozmiar budy powinien być dostosowany do wielkości psa. Pies powinien móc swobodnie wstać, obrócić się i położyć w budzie. W razie wątpliwości, zawsze lepiej wybrać nieco większy rozmiar."
   },
   {
-    question:
-      "Can you give examples of your successful social media campaigns?",
-    answer:
-      "Certainly! We have a portfolio of successful campaigns across various industries. Check out our Case Studies to see how we've helped businesses like yours achieve their social media goals.",
+    question: "Czy mogę zamówić budę w niestandardowym kolorze?",
+    answer: "Tak, oferujemy możliwość malowania budy w wybranym przez klienta kolorze za dodatkową opłatą 50 zł. Prosimy o kontakt w celu ustalenia szczegółów."
   },
   {
-    question: "Do you offer customized social media strategies?",
-    answer:
-      "Absolutely. Our team specializes in creating customized strategies tailored to your brand, industry, and target audience. We believe in the power of uniqueness, and our strategies reflect your specific goals and aspirations.",
+    question: "Jak często należy konserwować budę?",
+    answer: "Zalecamy przeprowadzanie podstawowej konserwacji raz w roku, obejmującej odświeżenie impregnacji i sprawdzenie stanu technicznego. W przypadku intensywnego użytkowania, konserwację można przeprowadzać częściej."
   },
   {
-    question: "How do you handle negative comments or reviews on social media?",
-    answer:
-      "We have a proactive approach to managing online reputation. Our social listening tools help us monitor brand mentions in real-time. In case of negative comments, we respond promptly with empathy and seek resolutions. We believe in turning challenges into opportunities for improvement.",
+    question: "Czy buda posiada podłogę?",
+    answer: "Tak, wszystkie nasze budy posiadają solidną, izolowaną podłogę, która chroni przed zimnem i wilgocią od podłoża."
   },
   {
-    question: "What social media platforms do you work with?",
-    answer:
-      "We work with a wide range of social media platforms, including but not limited to Facebook, Instagram, Twitter, LinkedIn, Pinterest, and TikTok. Our strategies are adaptable to the platforms most relevant to your target audience.",
+    question: "Czy mogę zamontować ogrzewanie w budzie?",
+    answer: "Tak, nasze budy są przystosowane do montażu mat grzewczych lub innych systemów ogrzewania. Służymy doradztwem w tym zakresie."
   },
   {
-    question:
-      "How often will I receive reports on the performance of my social media campaigns?",
-    answer:
-      "We provide regular and detailed reports on the performance of your social media campaigns. The frequency of reporting can be customized based on your preferences, with options for weekly, bi-weekly, or monthly updates.",
+    question: "Jakie drewno jest używane do produkcji bud?",
+    answer: "Używamy wyselekcjonowanego drewna sosnowego lub świerkowego, które jest odpowiednio suszone i impregnowane, co zapewnia trwałość i bezpieczeństwo konstrukcji."
   },
   {
-    question:
-      "Is there ongoing support if I have questions or need adjustments to my strategy?",
-    answer:
-      "Absolutely. We offer ongoing support to address any questions or concerns you may have. Our team is readily available to assist you and can make adjustments to your strategy as needed to ensure it aligns with your evolving business goals.",
+    question: "Czy buda wymaga montażu po dostarczeniu?",
+    answer: "Nie, dostarczamy budy w całości zmontowane, gotowe do użytkowania. Wystarczy tylko ustawić ją w wybranym miejscu."
   },
   {
-    question:
-      "Can I see a demo or get a consultation before deciding to work with your agency?",
-    answer:
-      "Certainly! We offer free consultations and personalized demos to showcase our approach, discuss your needs, and determine how we can best support your business. Contact us to schedule a consultation.",
+    question: "Czy oferujecie gwarancję na swoje produkty?",
+    answer: "Tak, udzielamy 24-miesięcznej gwarancji na nasze budy. Gwarancja obejmuje wady konstrukcyjne i materiałowe."
   },
+  {
+    question: "Czy można zwrócić budę jeśli nie będzie odpowiadała naszym oczekiwaniom?",
+    answer: "Tak, oferujemy 14-dniowy okres na zwrot towaru bez podania przyczyny, pod warunkiem że buda nie została uszkodzona lub zmodyfikowana."
+  },
+  {
+    question: "Jak należy przygotować miejsce pod budę?",
+    answer: "Zalecamy ustawienie budy na równym, stabilnym podłożu, najlepiej lekko podniesionym nad poziom gruntu. Może to być betonowa wylewka, kostka brukowa lub specjalne podesty."
+  },
+  {
+    question: "Czy ocieplenie budy jest konieczne?",
+    answer: "Ocieplenie nie jest konieczne, ale zdecydowanie zalecane, szczególnie jeśli pies przebywa w budzie w okresie zimowym. Znacząco poprawia komfort termiczny zarówno zimą jak i latem."
+  },
+  {
+    question: "Jak często należy czyścić budę?",
+    answer: "Zalecamy regularne czyszczenie budy co 2-3 tygodnie, obejmujące wymianę posłania i przemycie wnętrza łagodnym środkiem czyszczącym. Dokładniejsze czyszczenie warto przeprowadzać co 3-4 miesiące."
+  },
+  {
+    question: "Czy buda posiada wyjmowane dno do czyszczenia?",
+    answer: "Tak, nasze budy są wyposażone w wyjmowane dno, co znacznie ułatwia utrzymanie czystości i przeprowadzanie regularnej konserwacji."
+  },
+  {
+    question: "Jak chronić budę przed insektami?",
+    answer: "Wszystkie nasze budy są zabezpieczane środkami odstraszającymi insekty. Dodatkowo, regularna konserwacja i czyszczenie znacząco zmniejszają ryzyko pojawienia się niepożądanych gości."
+  },
+  {
+    question: "Jakie są metody płatności?",
+    answer: "Akceptujemy płatności gotówką przy odbiorze osobistym, przelewy bankowe, oraz płatności BLIK. W przypadku wysyłki kurierskiej możliwa jest również płatność za pobraniem."
+  },
+  {
+    question: "Czy oferujecie montaż budy na miejscu?",
+    answer: "W przypadku większych bud lub zamówień specjalnych oferujemy usługę montażu na miejscu. Koszt takiej usługi jest ustalany indywidualnie w zależności od lokalizacji."
+  },
+  {
+    question: "Czy można dostosować wysokość nóżek w budzie?",
+    answer: "Tak, wysokość nóżek może być dostosowana do indywidualnych potrzeb. Standardowo oferujemy nóżki o wysokości 10 cm, ale na życzenie możemy je wykonać w innym rozmiarze."
+  }
 ];
+
 
 export { services, solutions, faqs };
