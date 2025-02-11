@@ -6,11 +6,13 @@ import { Image } from 'astro:assets';
 // Get all images from assets/images/huts directory
 const images = await Astro.glob('../../src/assets/images/huts/*')
 ---
-<Layout title="Galeria">
+<Layout title="">
   <main class="container mx-auto px-4 py-8">
     <h1 class="text-4xl font-bold text-heading-1 mb-8">Galeria</h1>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+    class="mx-auto container my-8 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5"
+  >
       {images.map((image) => {
         console.log({image})
         if(image){
@@ -18,9 +20,8 @@ const images = await Astro.glob('../../src/assets/images/huts/*')
           <Image
             src={image.default}
             alt="Zdjęcie budy dla psa"
-            format="avif"
             quality={50}
-            class="rounded-sm mb-4 border border-transparent hover:border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg"
+class="rounded-sm mb-4 border border-transparent hover:border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg"
             loading="lazy"
           />
 
