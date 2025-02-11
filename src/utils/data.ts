@@ -173,5 +173,9 @@ const faqs = [
   }
 ];
 
-
+export const contact = {
+  email: "kontakt@budapies.pl",
+  phone: "+48 503 919 318",
+  address: "ul. Budowa 123, 00-000 Warszawa",
+};
 export { services, solutions, faqs };
