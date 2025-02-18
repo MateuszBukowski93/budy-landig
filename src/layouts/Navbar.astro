@@ -5,17 +5,15 @@ import BtnLink from "../components/shared/BtnLink.astro";
 
 const navItems = [
   {
-    href: "#services",
-    text: "Oferta",
+    href: "/gallery",
+    text: "Galeria",
   },
   {
-    href: "#testimonials",
-    text: "Opinie",
-  },
-  {
-    href: "#ctaOrder",
+    href: "/order",
     text: "Zamówienie",
   },
+
+  
 
 ];
 ---
@@ -45,11 +43,11 @@ const navItems = [
         <ul
           class="border-t border-box-border lg:border-t-0 px-6 lg:px-0 pt-6 lg:pt-0 flex flex-col lg:flex-row gap-y-4 gap-x-3 text-lg text-heading-2 w-full lg:justify-center lg:items-center"
         >
-          {
+          <!-- {
             navItems.map((item) => {
               return <Navitem {...item} />;
             })
-          }
+          } -->
         </ul>
 
         <div
@@ -57,7 +55,7 @@ const navItems = [
         >
           <BtnLink
             text="Zamów"
-            href="#ctaOrder"
+            href="/order"
             className="flex justify-center w-full sm:w-max"
             variant="primary"
           />
