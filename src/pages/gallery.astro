@@ -1,20 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Lightbox from '@julian_cataldo/astro-lightbox/Lightbox.astro';
 import { Image } from 'astro:assets';
 
 // Get all images from assets/images/huts directory
 const images = await Astro.glob('../../src/assets/images/huts/*')
 ---
-<Layout title="">
-  <main class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold text-heading-1 mb-8">Galeria</h1>
-    
+<Layout title="Galeria">
+  <main class="container mx-auto px-4 py-8 mt-6">
     <div
-    class="mx-auto container my-8 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5"
+    class="mx-auto container my-8 sm:columns-1 md:columns-2 lg:columns-3"
   >
       {images.map((image) => {
-        console.log({image})
         if(image){
         return(
           <Image

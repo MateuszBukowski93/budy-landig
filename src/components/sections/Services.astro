@@ -3,6 +3,7 @@ import Service from "../cards/Service.astro";
 import Container from "../shared/Container.astro";
 import Title from "../shared/Title.astro";
 import { services } from "../../utils/data.ts";
+import Button from "../shared/Button.astro";
 
 type ServicesProps = {
   title: string;
@@ -58,6 +59,16 @@ const { className } = Astro.props;
           );
         })
       }
+    </div>
+    <div class="flex justify-center">
+      <Button
+        variant="primary"
+        className="mt-8"
+      >
+        <a href="/gallery" class="relative z-10 text-white font-bold">
+          Zobacz Galerię
+        </a>
+      </Button>
     </div>
   </Container>
 </section>
