@@ -2,7 +2,8 @@
 import Container from "../components/shared/Container.astro";
 import Navitem from "../components/shared/Navitem.astro";
 import BtnLink from "../components/shared/BtnLink.astro";
-
+import Logo from "../assets/logos/hfp.png";
+import { Image } from 'astro:assets';
 const navItems = [
   {
     href: "/gallery",
@@ -21,14 +22,19 @@ const navItems = [
 <header class="absolute inset-x-0 top-0 z-50 py-6">
   <Container>
     <nav class="w-full flex justify-between gap-6 relative">
-      <!-- logo -->
+
       <div class="min-w-max inline-flex relative">
         <a href="/" class="relative flex items-center gap-3">
-          <div class="inline-flex text-xl font-semibold text-heading-1"> 
-            HouseFor.Pet
-          </div>
-        </a>
+        <Image
+        src={Logo}
+        alt="Zdjęcie budy dla psa"
+        quality={100}
+        loading="lazy"
+      height={100}
+      />
+      </a>
       </div>
+
 
       <div
         data-nav-overlay

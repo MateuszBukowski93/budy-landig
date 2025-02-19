@@ -209,8 +209,7 @@ const deliveryOptions = [
   }
 ];
 
-            function updateSummary(e?: any) {
-                console.log({e})
+            function updateSummary() {
                 const summaryList = document.getElementById('summary-list');
                 const totalPriceElement = document.getElementById('total-price');
                 if (!summaryList || !totalPriceElement) return;
@@ -246,7 +245,7 @@ const deliveryOptions = [
                             price = parseInt(priceElement?.textContent || '0');
                         }
                         summaryList.innerHTML += `<li>${checkbox.closest('label')?.querySelector('.font-medium')?.textContent} - ${price} zł</li>`;
-                        total += price;
+                        total += price as number;
                     }
                 });
 
@@ -256,21 +255,18 @@ const deliveryOptions = [
                     const deliveryLabel = selectedDelivery.closest('label');
                     const deliveryName = deliveryLabel?.querySelector('.font-medium')?.textContent;
                     
-                    const deliveryId = e.target?.value;
-
+                    const deliveryId = (selectedDelivery as HTMLInputElement).value;
                     const deliveryPrice = deliveryOptions.find(option => option.id === deliveryId)?.price;
 
                     if (deliveryLabel && deliveryName && deliveryPrice) {
                         if (deliveryPrice !== 'Cena zależna od odległości') {
-                            const price = parseInt(deliveryPrice);
+                            const price = parseInt(deliveryPrice.toString());
                             summaryList.innerHTML += `<li>${deliveryName} - ${price} zł</li>`;
                             total += price;
                         } else {
                             const result = document.getElementById('transit-result');
-                            console.log(3, result)
                             if (result) {
                                 const costMatch = result.textContent?.match(/Koszt dostawy: (\d+) zł/);
-                                console.log({costMatch})
                                 if (costMatch) {
                                     const deliveryCost = parseInt(costMatch[1]);
                                     summaryList.innerHTML += `<li>${deliveryName} - ${deliveryCost} zł</li>`;
@@ -298,7 +294,7 @@ const deliveryOptions = [
             });
 
             document.querySelectorAll('input[type="checkbox"], input[name="delivery"]')
-                .forEach(input => input.addEventListener('change', updateSummary,));
+                .forEach(input => input.addEventListener('change', updateSummary));
 
             // Initial update
             updateSummary();
