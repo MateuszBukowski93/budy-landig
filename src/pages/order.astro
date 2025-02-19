@@ -87,8 +87,9 @@ const deliveryOptions = [
 ---
 
 <Layout title="Order">
-    <main class="max-w-4xl mx-auto p-4">
-        
+    <main class="max-w-4xl mx-auto p-4 mt-32">
+        <h2 class="text-3xl font-semibold text-heading-1 mb-6">Zamow telefoniczne pod numerem telefonu <a href="tel:+48 503 919 318" class="text-primary">+48 503 919 318</a> , lub wypełnij formularz poniżej a nasz dział obsługi skontatkuje się z Tobą 
+        </h2>
         <script define:vars={{ prices }}>
             document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll('.size-option').forEach(button => {
@@ -102,8 +103,6 @@ const deliveryOptions = [
                 });
             });
         </script>
-
-        <OrderTransit />
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {sizes.map(size => (
@@ -125,7 +124,7 @@ const deliveryOptions = [
                             type="checkbox" 
                             id={option.id}
                             class="w-5 h-5 text-primary rounded border-gray-300 focus:ring-primary"
-                        >
+                        />
                         <div class="ml-4">
                             <span class="font-medium text-heading-1">{option.name}</span>
                             <p class="text-sm text-gray-600 dark:text-gray-400">{option.description}</p>
@@ -148,7 +147,7 @@ const deliveryOptions = [
                             value={option.id}
                             class="w-5 h-5 text-primary border-gray-300 focus:ring-primary"
                             checked={option.default}
-                        >
+                        />
                         <div class="ml-4">
                             <span class="font-medium text-heading-1">{option.name}</span>
                             <p class="text-sm text-gray-600 dark:text-gray-400">{option.description}</p>
@@ -159,6 +158,7 @@ const deliveryOptions = [
                     </label>
                 ))}
             </div>
+                    <OrderTransit />
         </div>
 
         <div class="mt-12 p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg">
@@ -180,6 +180,120 @@ const deliveryOptions = [
             </div>
         </div>
 
+        <div class="mt-12 p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg">
+            <h2 class="text-2xl font-semibold text-heading-1 mb-6">Dane kontaktowe w celu realizacji zamówienia</h2>
+            
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="firstName" class="block text-sm font-medium text-heading-3 mb-1">
+                            Imię
+                        </label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            required
+                            class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
+                            placeholder="Wprowadź imię"
+                        />
+                    </div>
+
+                    <div>
+                        <label for="lastName" class="block text-sm font-medium text-heading-3 mb-1">
+                            Nazwisko
+                        </label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            required
+                            class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
+                            placeholder="Wprowadź nazwisko"
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-heading-3 mb-1">
+                        Numer telefonu
+                    </label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        required
+                        class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
+                        placeholder="np. 123-456-789"
+                    />
+                </div>
+
+                <div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="street" class="block text-sm font-medium text-heading-3 mb-1">
+                                Ulica
+                            </label>
+                            <input
+                                type="text"
+                                id="street"
+                                name="street"
+                                required
+                                class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
+                                placeholder="Nazwa ulicy"
+                            />
+                        </div>
+                        <div>
+                            <label for="houseNumber" class="block text-sm font-medium text-heading-3 mb-1">
+                                Numer domu/mieszkania
+                            </label>
+                            <input
+                                type="text"
+                                id="houseNumber"
+                                name="houseNumber"
+                                required
+                                class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
+                                placeholder="Nr domu/mieszkania"
+                            />
+                        </div>
+                        <div>
+                            <label for="postalCode" class="block text-sm font-medium text-heading-3 mb-1">
+                                Kod pocztowy
+                            </label>
+                            <input
+                                type="text"
+                                id="postalCode"
+                                name="postalCode"
+                                required
+                                pattern="[0-9]{2}-[0-9]{3}"
+                                class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
+                                placeholder="00-000"
+                            />
+                        </div>
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-heading-3 mb-1">
+                                Miasto
+                            </label>
+                            <input
+                                type="text"
+                                id="city"
+                                name="city"
+                                required
+                                class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
+                                placeholder="Nazwa miasta"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium"
+                >
+                    Złóż zamówienie
+                </button>
+            </form>
+        </div>
         <script>
             const deliveryOptions = [
   {
