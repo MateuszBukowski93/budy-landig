@@ -456,6 +456,7 @@ const API = "https://script.google.com/macros/s/AKfycbyAtEmJgrXlZlpdVbQBkj2UymOn
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "text/plain;charset=utf-8",
+            "Referrer-Policy": "origin", 
         "Accept": "*/*",
       },
     }).then(response => response.text())
