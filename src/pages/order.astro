@@ -450,7 +450,8 @@ const deliveryOptions = [
                 };
 
                 try {
-                    const response = await fetch("https://script.google.com/macros/s/AKfycbxIR7YKpo7bH1GOosuqrK1Iq0nDg84FdFXHv94QF9NGjap25odMrvljeEoroiNNPwbykQ/exec", {
+                    const response = await fetch("https://script.google.com/macros/s/AKfycbwky9HxtYp-cJDiwHa3mcZGbUV2JckA4gBd9-AwlqZ7/dev", {
+                        redirect: "follow",
                         method: "POST",
                         body: JSON.stringify(data),
                         headers: { "Content-Type": "application/json" },
