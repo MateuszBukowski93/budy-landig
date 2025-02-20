@@ -345,7 +345,7 @@ const deliveryOptions = [
 
                 // Check additional options
                 const additionalOptions = [
-                    { id: 'insulation', priceId: 'insulation-price' },
+                    { id: 'insulation', price: 100 },
                     { id: 'legs', price: 50 },
                     { id: 'curtain', price: 50 }
                 ];
@@ -353,41 +353,33 @@ const deliveryOptions = [
                 additionalOptions.forEach(option => {
                     const checkbox = document.getElementById(option.id) as HTMLInputElement;
                     if (checkbox?.checked) {
-                        let price = option.price;
-                        if (option.priceId) {
-                            const priceElement = document.getElementById(option.priceId);
-                            price = parseInt(priceElement?.textContent || '0');
-                        }
-                        summaryList.innerHTML += `<li>${checkbox.closest('label')?.querySelector('.font-medium')?.textContent} - ${price} zł</li>`;
-                        total += price as number;
+                        summaryList.innerHTML += `<li>${checkbox.closest('label')?.querySelector('.font-medium')?.textContent} - ${option.price} zł</li>`;
+                        total += option.price;
                     }
                 });
 
                 // Get selected delivery
-                const selectedDelivery = document.querySelector('input[name="delivery"]:checked');
+                const selectedDelivery = document.querySelector('input[name="delivery"]:checked') as HTMLInputElement;
                 if (selectedDelivery) {
-                    const deliveryLabel = selectedDelivery.closest('label');
-                    const deliveryName = deliveryLabel?.querySelector('.font-medium')?.textContent;
-                    
-                    const deliveryId = (selectedDelivery as HTMLInputElement).value;
-                    const deliveryPrice = deliveryOptions.find(option => option.id === deliveryId)?.price;
+                    const deliveryId = selectedDelivery.value;
+                    const deliveryOption = deliveryOptions.find(option => option.id === deliveryId);
+                    const deliveryName = selectedDelivery.closest('label')?.querySelector('.font-medium')?.textContent;
 
-                    if (deliveryLabel && deliveryName && deliveryPrice) {
-                        if (deliveryPrice !== 'Cena zależna od odległości') {
-                            const price = parseInt(deliveryPrice.toString());
-                            summaryList.innerHTML += `<li>${deliveryName} - ${price} zł</li>`;
-                            total += price;
-                        } else {
-                            const result = document.getElementById('transit-result');
-                            if (result) {
-                                const costMatch = result.textContent?.match(/Koszt dostawy: (\d+) zł/);
-                                if (costMatch) {
-                                    const deliveryCost = parseInt(costMatch[1]);
-                                    summaryList.innerHTML += `<li>${deliveryName} - ${deliveryCost} zł</li>`;
-                                    total += deliveryCost;
-                                }
+                    if (deliveryId === 'company-delivery') {
+                        const result = document.getElementById('transit-result');
+                        if (result && result.textContent) {
+                            const costMatch = result.textContent.match(/Koszt dostawy: (\d+) zł/);
+                            if (costMatch) {
+                                const deliveryCost = parseInt(costMatch[1]);
+                                summaryList.innerHTML += `<li>${deliveryName} - ${deliveryCost} zł</li>`;
+                                total += deliveryCost;
                             }
                         }
+                    } else if (deliveryId === 'pickup') {
+                        summaryList.innerHTML += `<li>${deliveryName} - 0 zł</li>`;
+                    } else if (deliveryOption) {
+                        summaryList.innerHTML += `<li>${deliveryName} - ${deliveryOption.price} zł</li>`;
+                        total += deliveryOption.price;
                     }
                 }
 
@@ -409,6 +401,11 @@ const deliveryOptions = [
 
             document.querySelectorAll('input[type="checkbox"], input[name="delivery"]')
                 .forEach(input => input.addEventListener('change', updateSummary));
+
+            // Listen for custom event from OrderTransit component
+            document.addEventListener('transitCostCalculated', () => {
+                updateSummary();
+            });
 
             // Initial update
             updateSummary();
