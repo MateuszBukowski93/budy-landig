@@ -1,4 +1,5 @@
 ---
+import BtnLink from "../shared/BtnLink.astro";
 import Button from "../shared/Button.astro";
 import Container from "../shared/Container.astro";
 import CtaButton from "../shared/CtaButton.astro";
@@ -35,7 +36,18 @@ const { className } = Astro.props;
         </Paragraph>
         <div class="mx-auto max-w-md sm:max-w-xl pt-10">
           <CtaButton />
+
         </div>
+          <div class="mt-4">
+            <BtnLink
+              text="Zamów przez formularz" 
+              href="/order"
+              className="flex justify-center w-full sm:w-max m-auto"
+              variant="primary"
+            />
+          </div>
+
+
       </div>
     </div>
   </Container>

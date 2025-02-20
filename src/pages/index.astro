@@ -11,6 +11,17 @@ import Solutions from "../components/sections/Solutions.astro";
 
 <Layout title="HFP -Budy dla psów">
   <main class="flex flex-col overflow-hidden">
+    <div class="fixed bottom-6 right-6 z-50">
+        <a 
+            href="/order"
+            class="flex items-center justify-center px-6 py-3 bg-primary hover:bg-primary/90 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+        >
+            <span class="mr-2">Zamów teraz</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </a>
+    </div>
     <Hero className="py-10 md:py-16" />
     <Solutions className="pt-10 md:pt-16" />
     <Services className="py-10 md:py-16" />
