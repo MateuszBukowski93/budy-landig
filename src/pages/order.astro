@@ -7,10 +7,10 @@ interface Prices {
 }
 
 const prices: Prices = {
-  'Mała Buda': 450,
+  'Mała Buda': 350,
   'Średnia Buda': 600,
   'Duża Buda': 700,
-  'Bardzo Duża Buda': 1000
+  'Bardzo Duża Buda': 900
 };
 
 const sizes = [
@@ -68,12 +68,12 @@ const deliveryOptions = [
     id: 'courier-cod',
     name: 'Wysyłka kurierem za pobraniem',
     description: 'Natychmiastowa wysyłka, płatność przy odbiorze',
-    price: 250
+    price: 200
   },
   {
     id: 'company-delivery',
     name: 'Dowóz przez naszego pracownika',
-    description: '50 zł za każde rozpoczęte 100 km',
+    description: '50 gr za km',
     price: 'Cena zależna od odległości'
   },
   {
@@ -443,6 +443,7 @@ const deliveryOptions = [
                     size: sizeName,
                     sizePrice: sizePrice,
                     delivery: deliveryName,
+                    deliveryPrice: selectedDelivery?.closest('label')?.querySelector('.text-primary')?.textContent,
                     insulation: (document.getElementById('insulation') as HTMLInputElement)?.checked,
                     legs: (document.getElementById('legs') as HTMLInputElement)?.checked,
                     curtain: (document.getElementById('curtain') as HTMLInputElement)?.checked,
@@ -456,7 +457,31 @@ const deliveryOptions = [
     // "Content-Type": "application/json"  // ⚠️ Jeśli usuniesz, może ominąć preflight!
   },
   body: JSON.stringify(data)
-})
+}).then(response => {
+    if (response.ok) {
+        // Create modal element
+        const modal = document.createElement('div');
+        modal.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 p-4 rounded-lg shadow-lg z-50';
+        
+        if (response.ok) {
+          modal.className += ' bg-green-100 border border-green-400 text-green-700';
+          modal.textContent = 'Zamówienie złożone pomyślnie!';
+          form.reset();
+        } else {
+          modal.className += ' bg-red-100 border border-red-400 text-red-700';
+          modal.textContent = 'Upps coś poszło nie tak, złóż zamówienie przez telefon';
+        }
+
+        document.body.appendChild(modal);
+
+        // Remove modal after 5 seconds
+        setTimeout(() => {
+          modal.remove();
+        }, 5000);
+    } else {
+        console.error('Wystąpił błąd podczas złożenia zamówienia');
+    }
+});
             });
         </script>
     </main>

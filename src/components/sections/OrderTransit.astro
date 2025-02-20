@@ -31,7 +31,7 @@
   const postalCodeInput = document.getElementById('postalCode') as HTMLInputElement;
   const resultDiv = document.getElementById('transit-result');
 
-  const destinationPostalCode = '14-107';
+  const destinationPostalCode = '09-411';
 
   async function getCoordinates(postalCode: string) {
     try {
@@ -93,8 +93,8 @@
       );
 
       resultDiv.textContent = `Odległość: ${distance} km`;
-      // Calculate delivery cost - 50 PLN per each started 100km
-      const deliveryCost = Math.ceil(distance / 100) * 50;
+      // Calculate delivery cost - 0.50 PLN per each km
+      const deliveryCost = Math.ceil(distance) * 0.5;
       resultDiv.textContent = `Odległość: ${distance} km, Koszt dostawy: ${deliveryCost} zł`;
     } catch (error) {
       resultDiv.textContent = 'Wystąpił błąd podczas obliczania odległości';
