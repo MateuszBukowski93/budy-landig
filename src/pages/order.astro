@@ -433,13 +433,13 @@ const deliveryOptions = [
                 const totalPrice = document.getElementById('total-price')?.textContent;
 
                 const data = {
-                    name: formData.get('name'),
-                    email: formData.get('email'),
-                    phone: formData.get('phone'),
-                    street: formData.get('street'),
-                    houseNumber: formData.get('houseNumber'),
-                    postalCode: formData.get('postalCode'),
-                    city: formData.get('city'),
+                    name: formData.get('firstName'),
+                    email: formData.get('lastName'),
+                    phone: formData.get('phone') || 'Brak numeru telefonu',
+                    order: formData.get('street') || 'Brak ulicy',
+                    houseNumber: formData.get('houseNumber') || 'Brak numeru domu/mieszkania',
+                    postalCode: formData.get('postalCode') || 'Brak kodu pocztowego',
+                    city: formData.get('city') || 'Brak miasta',
                     size: sizeName,
                     sizePrice: sizePrice,
                     delivery: deliveryName,
@@ -448,20 +448,15 @@ const deliveryOptions = [
                     curtain: (document.getElementById('curtain') as HTMLInputElement)?.checked,
                     totalPrice: totalPrice
                 };
-const API = "https://script.google.com/macros/s/AKfycbyAtEmJgrXlZlpdVbQBkj2UymOnNVeeRCMp9cz0-L4KX5VGwUZkxgaBoegGOewtHiof2g/exec"
-
-                fetch(API, {
-      redirect: "follow",
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-            "Referrer-Policy": "origin", 
-        "Accept": "*/*",
-      },
-    }).then(response => response.text())
-  .then(data => console.log(data))
-  .catch(error => console.error("Błąd:", error));
+                
+            const API = "https://script.google.com/macros/s/AKfycbz43XstwphRT3W7Yfk24I5K8BVgegWksjks7qFticzQWDFYUFjGJaRs9RIs9yX74UIylg/exec"
+                await fetch(API, {
+                    method: "POST",
+  headers: {
+    // "Content-Type": "application/json"  // ⚠️ Jeśli usuniesz, może ominąć preflight!
+  },
+  body: JSON.stringify(data)
+})
             });
         </script>
     </main>
