@@ -379,7 +379,7 @@ const deliveryOptions = [
                         summaryList.innerHTML += `<li>${deliveryName} - 0 zł</li>`;
                     } else if (deliveryOption) {
                         summaryList.innerHTML += `<li>${deliveryName} - ${deliveryOption.price} zł</li>`;
-                        total += deliveryOption.price;
+                        total += deliveryOption.price as number;
                     }
                 }
 
