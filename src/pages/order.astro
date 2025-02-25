@@ -54,7 +54,14 @@ const additionalOptions = [
     name: 'Kurtyna',
     description: 'Elastyczna zasłona chroniąca przed wiatrem i deszczem',
     price: 50
-  }
+  },
+  {
+    id: 'terrace',
+    name: 'Taras',
+    description: 'Drewniany taras przed wejściem do budy, cena zależy od rozmiaru',
+    price: 150
+  },
+  {id:'wood-bone', name: 'Drewniana kość z imieniem Twojego Psa', description: 'będzie wisiała nad wejściem do budy', price: 30}
 ];
 
 const deliveryOptions = [
@@ -84,6 +91,27 @@ const deliveryOptions = [
     default: true
   }
 ];
+const paymentMethods = [
+  {
+    id: 'blik',
+    name: 'BLIK',
+    description: 'Szybka płatność przez BLIK',
+    availableFor: ['courier', 'company-delivery', 'pickup']
+  },
+  {
+    id: 'bank-transfer', 
+    name: 'Przelew na konto',
+    description: 'Tradycyjny przelew bankowy',
+    availableFor: ['courier', 'company-delivery', 'pickup']
+  },
+  {
+    id: 'cash-on-delivery',
+    name: 'Płatność przy odbiorze',
+    description: 'Zapłać gotówką przy dostawie',
+    availableFor: ['courier-cod', 'company-delivery', 'pickup']
+  }
+];
+
 ---
 
 <Layout title="Order">
@@ -159,6 +187,26 @@ const deliveryOptions = [
                 ))}
             </div>
                     <OrderTransit />
+        </div>
+        <div class="mt-12">
+            <h2 class="text-2xl font-semibold text-heading-1 mb-6">Metoda płatności</h2>
+            
+            <div class="space-y-4">
+                {paymentMethods.map(method => (
+                    <label class="payment-method flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
+                        <input 
+                            type="radio"
+                            name="payment"
+                            value={method.id}
+                            class="w-5 h-5 text-primary border-gray-300 focus:ring-primary"
+                        />
+                        <div class="ml-4">
+                            <span class="font-medium text-heading-1">{method.name}</span>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">{method.description}</p>
+                        </div>
+                    </label>
+                ))}
+            </div>
         </div>
 
         <div class="mt-12 p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg">
@@ -288,6 +336,7 @@ const deliveryOptions = [
 
                 <button
                     type="submit"
+                    id="submitBtn"
                     class="w-full px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium"
                 >
                     Złóż zamówienie
@@ -306,12 +355,12 @@ const deliveryOptions = [
     id: 'courier-cod',
     name: 'Wysyłka kurierem za pobraniem',
     description: 'Natychmiastowa wysyłka, płatność przy odbiorze',
-    price: 250
+    price: 200
   },
   {
     id: 'company-delivery',
     name: 'Dowóz przez naszego pracownika',
-    description: '50 zł za każde rozpoczęte 100 km',
+    description: '50 gr za km',
     price: 'Cena zależna od odległości'
   },
   {
@@ -347,7 +396,9 @@ const deliveryOptions = [
                 const additionalOptions = [
                     { id: 'insulation', price: 100 },
                     { id: 'legs', price: 50 },
-                    { id: 'curtain', price: 50 }
+                    { id: 'curtain', price: 50 },
+                    { id: 'terrace', price: 150 },
+                    {id:'wood-bone', price: 30}
                 ];
 
                 additionalOptions.forEach(option => {
@@ -414,6 +465,19 @@ const deliveryOptions = [
             document.querySelector('form')?.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
+                const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+                const originalText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `
+                    <span class="inline-flex items-center">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Wysyłanie...
+                    </span>
+                `;
+
                 const form = e.target as HTMLFormElement;
                 const formData = new FormData(form);
                 
@@ -430,10 +494,10 @@ const deliveryOptions = [
                 const totalPrice = document.getElementById('total-price')?.textContent;
 
                 const data = {
-                    name: formData.get('firstName'),
-                    email: formData.get('lastName'),
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
                     phone: formData.get('phone') || 'Brak numeru telefonu',
-                    order: formData.get('street') || 'Brak ulicy',
+                    street: formData.get('street') || 'Brak ulicy',
                     houseNumber: formData.get('houseNumber') || 'Brak numeru domu/mieszkania',
                     postalCode: formData.get('postalCode') || 'Brak kodu pocztowego',
                     city: formData.get('city') || 'Brak miasta',
@@ -441,44 +505,47 @@ const deliveryOptions = [
                     sizePrice: sizePrice,
                     delivery: deliveryName,
                     deliveryPrice: selectedDelivery?.closest('label')?.querySelector('.text-primary')?.textContent,
+                    payment: (document.querySelector('input[name="payment"]:checked') as HTMLInputElement)?.value || 'Nie wybrano metody płatności',
                     insulation: (document.getElementById('insulation') as HTMLInputElement)?.checked,
                     legs: (document.getElementById('legs') as HTMLInputElement)?.checked,
                     curtain: (document.getElementById('curtain') as HTMLInputElement)?.checked,
+                    terrace: (document.getElementById('terrace') as HTMLInputElement)?.checked,
+                    woodBone: (document.getElementById('wood-bone') as HTMLInputElement)?.checked,
                     totalPrice: totalPrice
                 };
                 
-            const API = "https://script.google.com/macros/s/AKfycbz43XstwphRT3W7Yfk24I5K8BVgegWksjks7qFticzQWDFYUFjGJaRs9RIs9yX74UIylg/exec"
-                await fetch(API, {
-                    method: "POST",
-  headers: {
-    // "Content-Type": "application/json"  // ⚠️ Jeśli usuniesz, może ominąć preflight!
-  },
-  body: JSON.stringify(data)
-}).then(response => {
-    if (response.ok) {
-        // Create modal element
-        const modal = document.createElement('div');
-        modal.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 p-4 rounded-lg shadow-lg z-50';
-        
-        if (response.ok) {
-          modal.className += ' bg-green-100 border border-green-400 text-green-700';
-          modal.textContent = 'Zamówienie złożone pomyślnie!';
-          form.reset();
-        } else {
-          modal.className += ' bg-red-100 border border-red-400 text-red-700';
-          modal.textContent = 'Upps coś poszło nie tak, złóż zamówienie przez telefon';
-        }
+            const API = "https://script.google.com/macros/s/AKfycbyi_DtCVqx3XWWBxehqY_wMgejjs7TXyRnKww19y_16xVvHHdx2Fa-NwKt-ExESMXGMUQ/exec"
+                try {
+                    const response = await fetch(API, {
+                        method: "POST",
+                        headers: {},
+                        body: JSON.stringify(data)
+                    });
 
-        document.body.appendChild(modal);
+                    // Create modal element
+                    const modal = document.createElement('div');
+                    modal.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 p-4 rounded-lg shadow-lg z-50';
+                    
+                    if (response.ok) {
+                        modal.className += ' bg-green-100 border border-green-400 text-green-700';
+                        modal.textContent = 'Zamówienie złożone pomyślnie!';
+                        form.reset();
+                    } else {
+                        modal.className += ' bg-red-100 border border-red-400 text-red-700';
+                        modal.textContent = 'Upps coś poszło nie tak, złóż zamówienie przez telefon';
+                    }
 
-        // Remove modal after 5 seconds
-        setTimeout(() => {
-          modal.remove();
-        }, 5000);
-    } else {
-        console.error('Wystąpił błąd podczas złożenia zamówienia');
-    }
-});
+                    document.body.appendChild(modal);
+
+                    // Remove modal after 5 seconds
+                    setTimeout(() => {
+                        modal.remove();
+                    }, 5000);
+                } finally {
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
             });
         </script>
     </main>

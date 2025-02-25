@@ -3,6 +3,7 @@ import Container from "../components/shared/Container.astro";
 import Navitem from "../components/shared/Navitem.astro";
 import BtnLink from "../components/shared/BtnLink.astro";
 import Logo from "../assets/logos/hfp.png";
+import LogoMobile from "../assets/logos/logo-mobile.png";
 import { Image } from 'astro:assets';
 const navItems = [
   {
@@ -26,12 +27,21 @@ const navItems = [
       <div class="min-w-max inline-flex relative">
         <a href="/" class="relative flex items-center gap-3">
         <Image
-        src={Logo}
-        alt="Zdjęcie budy dla psa"
-        quality={100}
-        loading="lazy"
-      height={100}
-      />
+          src={Logo}
+          alt="Zdjęcie budy dla psa"
+          quality={100}
+          loading="lazy"
+          height={100}
+          class="hidden md:block"
+        />
+        <Image 
+          src={LogoMobile}
+          alt="Zdjęcie budy dla psa - wersja mobilna"
+          quality={100}
+          loading="lazy"
+          height={80}
+          class="block md:hidden"
+        />
       </a>
       </div>
 
@@ -74,26 +84,6 @@ const navItems = [
         </div>
       </div>
 
-      <div class="min-w-max flex items-center gap-x-3">
-        <button
-          data-toggle-nav
-          data-open-nav="false"
-          class="lg:hidden lg:invisible outline-none w-7 h-auto flex flex-col relative"
-        >
-          <span
-            id="line1"
-            class="w-6 h-0.5 rounded-full bg-heading-2 transition-all duration-300 ease-linear"
-          ></span>
-          <span
-            id="line2"
-            class="w-6 origin-center mt-1 h-0.5 rounded-ful bg-heading-2 transition-all duration-300 ease-linear"
-          ></span>
-          <span
-            id="line3"
-            class="w-6 mt-1 h-0.5 rounded-ful bg-heading-2 transition-all duration-300 ease-linear"
-          ></span>
-          <span class="sr-only">togglenav</span>
-        </button>
       </div>
     </nav>
   </Container>
