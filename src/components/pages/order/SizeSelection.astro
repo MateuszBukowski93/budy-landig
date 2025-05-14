@@ -1,0 +1,39 @@
+---
+import { sizes } from "./data";
+
+interface Props {
+  sizes?: Array<{
+    name: string;
+    dimensions: string;
+    description: string;
+  }>;
+  prices?: Record<string, number>;
+}
+
+const { sizes: propSizes, prices: propPrices } = Astro.props;
+
+// Use either the props or the imported data
+const sizeEntries = propSizes 
+  ? propSizes 
+  : Object.entries(sizes).map(([key, value]) => ({
+      name: value.name,
+      dimensions: value.dimensions,
+      description: value.description,
+      price: value.price
+    }));
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {sizeEntries.map((size) => (
+        <button class="size-option p-6 border-2 border-gray-200 rounded-xl hover:border-primary focus:border-primary focus:outline-none transition-colors">
+            <h2 class="text-xl font-semibold text-heading-1 mb-2">{size.name}</h2>
+            <p class="text-heading-3">{size.dimensions}</p>
+            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{size.description}</p>
+            <p class="mt-4 text-lg font-semibold text-primary">
+                {propPrices && size.name in propPrices 
+                    ? `${propPrices[size.name]} zł` 
+                    : 'price' in size ? `${size.price} zł` : ''}
+            </p>
+        </button>
+    ))}
+</div>

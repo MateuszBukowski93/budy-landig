@@ -1,474 +1,140 @@
 ---
-import OrderTransit from '../components/sections/OrderTransit.astro';
-import Layout from '../layouts/Layout.astro';
-
+import OrderTransit from "../components/pages/order/OrderTransit.astro";
+import Layout from "../layouts/Layout.astro";
+import Summary from "../components/pages/order/Summary.astro";
+import SizeSelection from "../components/pages/order/SizeSelection.astro";
+import DeliveryOptions from "../components/pages/order/DeliveryOptions.astro";
+import PaymentMethods from "../components/pages/order/PaymentMethods.astro";
+import DeliveryContactForm from "../components/pages/order/DeliveryContactForm.astro";
+import AdditionalOptions from "../components/pages/order/AdditionalOptions.astro";
 interface Prices {
   [key: string]: number;
 }
-
-const prices: Prices = {
-  'Mała Buda': 350,
-  'Średnia Buda': 600,
-  'Duża Buda': 700,
-  'Bardzo Duża Buda': 900
-};
-
-const sizes = [
-  {
-    name: 'Mała Buda',
-    dimensions: '50x60 cm',
-    description: 'Idealna dla małych psów do 10kg'
-  },
-  {
-    name: 'Średnia Buda', 
-    dimensions: '60x80 cm',
-    description: 'Odpowiednia dla psów średniej wielkości 10-25kg'
-  },
-  {
-    name: 'Duża Buda',
-    dimensions: '70x100 cm', 
-    description: 'Dla dużych psów 25-45kg'
-  },
-  {
-    name: 'Bardzo Duża Buda',
-    dimensions: '90x120 cm',
-    description: 'Dla największych ras powyżej 45kg'
-  }
-];
-
-const additionalOptions = [
-  {
-    id: 'insulation',
-    name: 'Ocieplenie',
-    description: 'Dodatkowa warstwa izolacyjna chroniąca przed zimnem i upałem',
-    price: 100
-  },
-  {
-    id: 'legs',
-    name: 'Nóżki',
-    description: 'Podnoszą budę nad poziom podłoża, chroniąc przed wilgocią',
-    price: 50
-  },
-  {
-    id: 'curtain',
-    name: 'Kurtyna',
-    description: 'Elastyczna zasłona chroniąca przed wiatrem i deszczem',
-    price: 50
-  },
-  {
-    id: 'terrace',
-    name: 'Taras',
-    description: 'Drewniany taras przed wejściem do budy, cena zależy od rozmiaru',
-    price: 150
-  },
-  {id:'wood-bone', name: 'Drewniana kość z imieniem Twojego Psa', description: 'będzie wisiała nad wejściem do budy', price: 30}
-];
-
-const deliveryOptions = [
-  {
-    id: 'courier',
-    name: 'Wysyłka kurierem',
-    description: 'Natychmiastowa wysyłka, płatność z góry',
-    price: 200
-  },
-  {
-    id: 'courier-cod',
-    name: 'Wysyłka kurierem za pobraniem',
-    description: 'Natychmiastowa wysyłka, płatność przy odbiorze',
-    price: 200
-  },
-  {
-    id: 'company-delivery',
-    name: 'Dowóz przez naszego pracownika',
-    description: '50 gr za km',
-    price: 'Cena zależna od odległości'
-  },
-  {
-    id: 'pickup',
-    name: 'Odbiór osobisty',
-    description: 'Odbiór w miejscu produkcji',
-    price: 0,
-    default: true
-  }
-];
-const paymentMethods = [
-  {
-    id: 'blik',
-    name: 'BLIK',
-    description: 'Szybka płatność przez BLIK',
-    availableFor: ['courier', 'company-delivery', 'pickup']
-  },
-  {
-    id: 'bank-transfer', 
-    name: 'Przelew na konto',
-    description: 'Tradycyjny przelew bankowy',
-    availableFor: ['courier', 'company-delivery', 'pickup']
-  },
-  {
-    id: 'cash-on-delivery',
-    name: 'Płatność przy odbiorze',
-    description: 'Zapłać gotówką przy dostawie',
-    availableFor: ['courier-cod', 'company-delivery', 'pickup']
-  }
-];
-
 ---
 
 <Layout title="Order">
-    <main class="max-w-4xl mx-auto p-4 mt-32">
-        <h2 class="text-3xl font-semibold text-heading-1 mb-6">Zamow telefoniczne pod numerem telefonu <a href="tel:+48 503 919 318" class="text-primary">+48 503 919 318</a> , lub wypełnij formularz poniżej a nasz dział obsługi skontatkuje się z Tobą 
-        </h2>
-        <script define:vars={{ prices }}>
-            document.addEventListener('DOMContentLoaded', () => {
-                document.querySelectorAll('.size-option').forEach(button => {
-                    const title = button.querySelector('h2')?.textContent;
-                    if (title) {
-                        const priceElement = document.createElement('p');
-                        priceElement.className = 'mt-4 text-lg font-semibold text-primary';
-                        priceElement.textContent = `${prices[title]} zł`;
-                        button.appendChild(priceElement);
-                    }
-                });
-            });
-        </script>
+  <main class="max-w-4xl mx-auto p-4 mt-32">
+    <h2 class="text-3xl font-semibold text-heading-1 mb-6">
+      Zamow telefoniczne pod numerem telefonu <a
+        href="tel:+48 503 919 318"
+        class="text-primary">+48 503 919 318</a
+      > , lub wypełnij formularz poniżej a nasz dział obsługi skontatkuje się z Tobą
+    </h2>
+    <SizeSelection />
+    <AdditionalOptions />
+    <DeliveryOptions />
+    <PaymentMethods />
+    <Summary />
+    <DeliveryContactForm />
+    <script>
+ 
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {sizes.map(size => (
-                <button class="size-option p-6 border-2 border-gray-200 rounded-xl hover:border-primary focus:border-primary focus:outline-none transition-colors">
-                    <h2 class="text-xl font-semibold text-heading-1 mb-2">{size.name}</h2>
-                    <p class="text-heading-3">{size.dimensions}</p>
-                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{size.description}</p>
-                </button>
-            ))}
-        </div>
+      function updateSummary() {
+        const summaryList = document.getElementById("summary-list");
+        const totalPriceElement = document.getElementById("total-price");
+        if (!summaryList || !totalPriceElement) return;
 
-        <div class="mt-12">
-            <h2 class="text-2xl font-semibold text-heading-1 mb-6">Opcje dodatkowe</h2>
-            
-            <div class="space-y-4">
-                {additionalOptions.map(option => (
-                    <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
-                        <input 
-                            type="checkbox" 
-                            id={option.id}
-                            class="w-5 h-5 text-primary rounded border-gray-300 focus:ring-primary"
-                        />
-                        <div class="ml-4">
-                            <span class="font-medium text-heading-1">{option.name}</span>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">{option.description}</p>
-                            <span class="text-sm text-primary" id={`${option.id}-price`}>{option.price} zł</span>
-                        </div>
-                    </label>
-                ))}
-            </div>
-        </div>
+        let total = 0;
+        summaryList.innerHTML = "";
 
-        <div class="mt-12">
-            <h2 class="text-2xl font-semibold text-heading-1 mb-6">Opcje dostawy</h2>
-            
-            <div class="space-y-4">
-                {deliveryOptions.map(option => (
-                    <label class="delivery-option flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
-                        <input 
-                            type="radio" 
-                            name="delivery" 
-                            value={option.id}
-                            class="w-5 h-5 text-primary border-gray-300 focus:ring-primary"
-                            checked={option.default}
-                        />
-                        <div class="ml-4">
-                            <span class="font-medium text-heading-1">{option.name}</span>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">{option.description}</p>
-                            <span class="text-sm text-primary">
-                                {typeof option.price === 'number' ? `${option.price} zł` : option.price}
-                            </span>
-                        </div>
-                    </label>
-                ))}
-            </div>
-                    <OrderTransit />
-        </div>
-        <div class="mt-12">
-            <h2 class="text-2xl font-semibold text-heading-1 mb-6">Metoda płatności</h2>
-            
-            <div class="space-y-4">
-                {paymentMethods.map(method => (
-                    <label class="payment-method flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
-                        <input 
-                            type="radio"
-                            name="payment"
-                            value={method.id}
-                            class="w-5 h-5 text-primary border-gray-300 focus:ring-primary"
-                        />
-                        <div class="ml-4">
-                            <span class="font-medium text-heading-1">{method.name}</span>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">{method.description}</p>
-                        </div>
-                    </label>
-                ))}
-            </div>
-        </div>
+        // Get selected size
+        const selectedSize = document.querySelector(
+          ".size-option.border-primary"
+        );
+        if (selectedSize) {
+          const sizeName = selectedSize.querySelector("h2")?.textContent;
+          const priceText =
+            selectedSize.querySelector(".text-primary")?.textContent;
+          if (sizeName && priceText) {
+            const sizePrice = parseInt(priceText);
+            summaryList.innerHTML += `<li>${sizeName} - ${sizePrice} zł</li>`;
+            total += sizePrice;
+          }
+        }
 
-        <div class="mt-12 p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg">
-            <h2 class="text-2xl font-semibold text-heading-1 mb-6">Podsumowanie zamówienia</h2>
-            
-            <div class="space-y-4">
-                <div class="selected-options">
-                    <h3 class="font-medium text-heading-2 mb-3">Wybrane opcje:</h3>
-                    <ul id="summary-list" class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400">
-                    </ul>
-                </div>
 
-                <div class="total mt-6 pt-4 border-t border-gray-200">
-                    <div class="flex justify-between items-center">
-                        <span class="text-lg font-semibold text-heading-1">Suma:</span>
-                        <span id="total-price" class="text-lg font-bold text-primary">0 zł</span>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="mt-12 p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg">
-            <h2 class="text-2xl font-semibold text-heading-1 mb-6">Dane kontaktowe w celu realizacji zamówienia</h2>
-            
-            <form class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="firstName" class="block text-sm font-medium text-heading-3 mb-1">
-                            Imię
-                        </label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            name="firstName"
-                            required
-                            class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
-                            placeholder="Wprowadź imię"
-                        />
-                    </div>
+        additionalOptions.forEach((option) => {
+          const checkbox = document.getElementById(
+            option.id
+          ) as HTMLInputElement;
+          if (checkbox?.checked) {
+            summaryList.innerHTML += `<li>${checkbox.closest("label")?.querySelector(".font-medium")?.textContent} - ${option.price} zł</li>`;
+            total += option.price;
+          }
+        });
 
-                    <div>
-                        <label for="lastName" class="block text-sm font-medium text-heading-3 mb-1">
-                            Nazwisko
-                        </label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            name="lastName"
-                            required
-                            class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
-                            placeholder="Wprowadź nazwisko"
-                        />
-                    </div>
-                </div>
+        // Get selected delivery
+        const selectedDelivery = document.querySelector(
+          'input[name="delivery"]:checked'
+        ) as HTMLInputElement;
+        if (selectedDelivery) {
+          const deliveryId = selectedDelivery.value;
+          const deliveryOption = deliveryOptions.find(
+            (option) => option.id === deliveryId
+          );
+          const deliveryName = selectedDelivery
+            .closest("label")
+            ?.querySelector(".font-medium")?.textContent;
 
-                <div>
-                    <label for="phone" class="block text-sm font-medium text-heading-3 mb-1">
-                        Numer telefonu
-                    </label>
-                    <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        required
-                        class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
-                        placeholder="np. 123-456-789"
-                    />
-                </div>
-
-                <div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="street" class="block text-sm font-medium text-heading-3 mb-1">
-                                Ulica
-                            </label>
-                            <input
-                                type="text"
-                                id="street"
-                                name="street"
-                                required
-                                class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
-                                placeholder="Nazwa ulicy"
-                            />
-                        </div>
-                        <div>
-                            <label for="houseNumber" class="block text-sm font-medium text-heading-3 mb-1">
-                                Numer domu/mieszkania
-                            </label>
-                            <input
-                                type="text"
-                                id="houseNumber"
-                                name="houseNumber"
-                                required
-                                class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
-                                placeholder="Nr domu/mieszkania"
-                            />
-                        </div>
-                        <div>
-                            <label for="postalCode" class="block text-sm font-medium text-heading-3 mb-1">
-                                Kod pocztowy
-                            </label>
-                            <input
-                                type="text"
-                                id="postalCode"
-                                name="postalCode"
-                                required
-                                pattern="[0-9]{2}-[0-9]{3}"
-                                class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
-                                placeholder="00-000"
-                            />
-                        </div>
-                        <div>
-                            <label for="city" class="block text-sm font-medium text-heading-3 mb-1">
-                                Miasto
-                            </label>
-                            <input
-                                type="text"
-                                id="city"
-                                name="city"
-                                required
-                                class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary"
-                                placeholder="Nazwa miasta"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                <button
-                    type="submit"
-                    id="submitBtn"
-                    class="w-full px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium"
-                >
-                    Złóż zamówienie
-                </button>
-            </form>
-        </div>
-        <script>
-            const deliveryOptions = [
-  {
-    id: 'courier',
-    name: 'Wysyłka kurierem',
-    description: 'Natychmiastowa wysyłka, płatność z góry',
-    price: 200
-  },
-  {
-    id: 'courier-cod',
-    name: 'Wysyłka kurierem za pobraniem',
-    description: 'Natychmiastowa wysyłka, płatność przy odbiorze',
-    price: 200
-  },
-  {
-    id: 'company-delivery',
-    name: 'Dowóz przez naszego pracownika',
-    description: '50 gr za km',
-    price: 'Cena zależna od odległości'
-  },
-  {
-    id: 'pickup',
-    name: 'Odbiór osobisty',
-    description: 'Odbiór w miejscu produkcji',
-    price: 0,
-    default: true
-  }
-];
-
-            function updateSummary() {
-                const summaryList = document.getElementById('summary-list');
-                const totalPriceElement = document.getElementById('total-price');
-                if (!summaryList || !totalPriceElement) return;
-
-                let total = 0;
-                summaryList.innerHTML = '';
-
-                // Get selected size
-                const selectedSize = document.querySelector('.size-option.border-primary');
-                if (selectedSize) {
-                    const sizeName = selectedSize.querySelector('h2')?.textContent;
-                    const priceText = selectedSize.querySelector('.text-primary')?.textContent;
-                    if (sizeName && priceText) {
-                        const sizePrice = parseInt(priceText);
-                        summaryList.innerHTML += `<li>${sizeName} - ${sizePrice} zł</li>`;
-                        total += sizePrice;
-                    }
-                }
-
-                // Check additional options
-                const additionalOptions = [
-                    { id: 'insulation', price: 100 },
-                    { id: 'legs', price: 50 },
-                    { id: 'curtain', price: 50 },
-                    { id: 'terrace', price: 150 },
-                    {id:'wood-bone', price: 30}
-                ];
-
-                additionalOptions.forEach(option => {
-                    const checkbox = document.getElementById(option.id) as HTMLInputElement;
-                    if (checkbox?.checked) {
-                        summaryList.innerHTML += `<li>${checkbox.closest('label')?.querySelector('.font-medium')?.textContent} - ${option.price} zł</li>`;
-                        total += option.price;
-                    }
-                });
-
-                // Get selected delivery
-                const selectedDelivery = document.querySelector('input[name="delivery"]:checked') as HTMLInputElement;
-                if (selectedDelivery) {
-                    const deliveryId = selectedDelivery.value;
-                    const deliveryOption = deliveryOptions.find(option => option.id === deliveryId);
-                    const deliveryName = selectedDelivery.closest('label')?.querySelector('.font-medium')?.textContent;
-
-                    if (deliveryId === 'company-delivery') {
-                        const result = document.getElementById('transit-result');
-                        if (result && result.textContent) {
-                            const costMatch = result.textContent.match(/Koszt dostawy: (\d+) zł/);
-                            if (costMatch) {
-                                const deliveryCost = parseInt(costMatch[1]);
-                                summaryList.innerHTML += `<li>${deliveryName} - ${deliveryCost} zł</li>`;
-                                total += deliveryCost;
-                            }
-                        }
-                    } else if (deliveryId === 'pickup') {
-                        summaryList.innerHTML += `<li>${deliveryName} - 0 zł</li>`;
-                    } else if (deliveryOption) {
-                        summaryList.innerHTML += `<li>${deliveryName} - ${deliveryOption.price} zł</li>`;
-                        total += deliveryOption.price as number;
-                    }
-                }
-
-                totalPriceElement.textContent = `${total} zł`;
+          if (deliveryId === "company-delivery") {
+            const result = document.getElementById("transit-result");
+            if (result && result.textContent) {
+              const costMatch = result.textContent.match(
+                /Koszt dostawy: (\d+) zł/
+              );
+              if (costMatch) {
+                const deliveryCost = parseInt(costMatch[1]);
+                summaryList.innerHTML += `<li>${deliveryName} - ${deliveryCost} zł</li>`;
+                total += deliveryCost;
+              }
             }
+          } else if (deliveryId === "pickup") {
+            summaryList.innerHTML += `<li>${deliveryName} - 0 zł</li>`;
+          } else if (deliveryOption) {
+            summaryList.innerHTML += `<li>${deliveryName} - ${deliveryOption.price} zł</li>`;
+            total += deliveryOption.price as number;
+          }
+        }
 
-            // Add event listeners
-            document.querySelectorAll('.size-option').forEach(option => {
-                option.addEventListener('click', () => {
-                    document.querySelectorAll('.size-option').forEach(opt => {
-                        opt.classList.remove('border-primary');
-                        opt.classList.add('border-gray-200');
-                    });
-                    option.classList.remove('border-gray-200');
-                    option.classList.add('border-primary');
-                    updateSummary();
-                });
-            });
+        totalPriceElement.textContent = `${total} zł`;
+      }
 
-            document.querySelectorAll('input[type="checkbox"], input[name="delivery"]')
-                .forEach(input => input.addEventListener('change', updateSummary));
+      // Add event listeners
+      document.querySelectorAll(".size-option").forEach((option) => {
+        option.addEventListener("click", () => {
+          document.querySelectorAll(".size-option").forEach((opt) => {
+            opt.classList.remove("border-primary");
+            opt.classList.add("border-gray-200");
+          });
+          option.classList.remove("border-gray-200");
+          option.classList.add("border-primary");
+          updateSummary();
+        });
+      });
 
-            // Listen for custom event from OrderTransit component
-            document.addEventListener('transitCostCalculated', () => {
-                updateSummary();
-            });
+      document
+        .querySelectorAll('input[type="checkbox"], input[name="delivery"]')
+        .forEach((input) => input.addEventListener("change", updateSummary));
 
-            // Initial update
-            updateSummary();
+      // Listen for custom event from OrderTransit component
+      document.addEventListener("transitCostCalculated", () => {
+        updateSummary();
+      });
 
-            // Form submission handler
-            document.querySelector('form')?.addEventListener('submit', async (e) => {
-                e.preventDefault();
+      // Initial update
+      updateSummary();
 
-                const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
-                const originalText = submitBtn.textContent;
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = `
+      // Form submission handler
+      document.querySelector("form")?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById(
+          "submitBtn"
+        ) as HTMLButtonElement;
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
                     <span class="inline-flex items-center">
                         <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -478,75 +144,99 @@ const paymentMethods = [
                     </span>
                 `;
 
-                const form = e.target as HTMLFormElement;
-                const formData = new FormData(form);
-                
-                // Get selected size
-                const selectedSize = document.querySelector('.size-option.border-primary');
-                const sizeName = selectedSize?.querySelector('h2')?.textContent;
-                const sizePrice = selectedSize?.querySelector('.text-primary')?.textContent;
+        const form = e.target as HTMLFormElement;
+        const formData = new FormData(form);
 
-                // Get selected delivery
-                const selectedDelivery = document.querySelector('input[name="delivery"]:checked') as HTMLInputElement;
-                const deliveryName = selectedDelivery?.closest('label')?.querySelector('.font-medium')?.textContent;
+        // Get selected size
+        const selectedSize = document.querySelector(
+          ".size-option.border-primary"
+        );
+        const sizeName = selectedSize?.querySelector("h2")?.textContent;
+        const sizePrice =
+          selectedSize?.querySelector(".text-primary")?.textContent;
 
-                // Get total price
-                const totalPrice = document.getElementById('total-price')?.textContent;
+        // Get selected delivery
+        const selectedDelivery = document.querySelector(
+          'input[name="delivery"]:checked'
+        ) as HTMLInputElement;
+        const deliveryName = selectedDelivery
+          ?.closest("label")
+          ?.querySelector(".font-medium")?.textContent;
 
-                const data = {
-                    firstName: formData.get('firstName'),
-                    lastName: formData.get('lastName'),
-                    phone: formData.get('phone') || 'Brak numeru telefonu',
-                    street: formData.get('street') || 'Brak ulicy',
-                    houseNumber: formData.get('houseNumber') || 'Brak numeru domu/mieszkania',
-                    postalCode: formData.get('postalCode') || 'Brak kodu pocztowego',
-                    city: formData.get('city') || 'Brak miasta',
-                    size: sizeName,
-                    sizePrice: sizePrice,
-                    delivery: deliveryName,
-                    deliveryPrice: selectedDelivery?.closest('label')?.querySelector('.text-primary')?.textContent,
-                    payment: (document.querySelector('input[name="payment"]:checked') as HTMLInputElement)?.value || 'Nie wybrano metody płatności',
-                    insulation: (document.getElementById('insulation') as HTMLInputElement)?.checked,
-                    legs: (document.getElementById('legs') as HTMLInputElement)?.checked,
-                    curtain: (document.getElementById('curtain') as HTMLInputElement)?.checked,
-                    terrace: (document.getElementById('terrace') as HTMLInputElement)?.checked,
-                    woodBone: (document.getElementById('wood-bone') as HTMLInputElement)?.checked,
-                    totalPrice: totalPrice
-                };
-                
-            const API = "https://script.google.com/macros/s/AKfycbyi_DtCVqx3XWWBxehqY_wMgejjs7TXyRnKww19y_16xVvHHdx2Fa-NwKt-ExESMXGMUQ/exec"
-                try {
-                    const response = await fetch(API, {
-                        method: "POST",
-                        headers: {},
-                        body: JSON.stringify(data)
-                    });
+        // Get total price
+        const totalPrice = document.getElementById("total-price")?.textContent;
 
-                    // Create modal element
-                    const modal = document.createElement('div');
-                    modal.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 p-4 rounded-lg shadow-lg z-50';
-                    
-                    if (response.ok) {
-                        modal.className += ' bg-green-100 border border-green-400 text-green-700';
-                        modal.textContent = 'Zamówienie złożone pomyślnie!';
-                        form.reset();
-                    } else {
-                        modal.className += ' bg-red-100 border border-red-400 text-red-700';
-                        modal.textContent = 'Upps coś poszło nie tak, złóż zamówienie przez telefon';
-                    }
+        const data = {
+          firstName: formData.get("firstName"),
+          lastName: formData.get("lastName"),
+          phone: formData.get("phone") || "Brak numeru telefonu",
+          street: formData.get("street") || "Brak ulicy",
+          houseNumber:
+            formData.get("houseNumber") || "Brak numeru domu/mieszkania",
+          postalCode: formData.get("postalCode") || "Brak kodu pocztowego",
+          city: formData.get("city") || "Brak miasta",
+          size: sizeName,
+          sizePrice: sizePrice,
+          delivery: deliveryName,
+          deliveryPrice: selectedDelivery
+            ?.closest("label")
+            ?.querySelector(".text-primary")?.textContent,
+          payment:
+            (
+              document.querySelector(
+                'input[name="payment"]:checked'
+              ) as HTMLInputElement
+            )?.value || "Nie wybrano metody płatności",
+          insulation: (
+            document.getElementById("insulation") as HTMLInputElement
+          )?.checked,
+          legs: (document.getElementById("legs") as HTMLInputElement)?.checked,
+          curtain: (document.getElementById("curtain") as HTMLInputElement)
+            ?.checked,
+          terrace: (document.getElementById("terrace") as HTMLInputElement)
+            ?.checked,
+          woodBone: (document.getElementById("wood-bone") as HTMLInputElement)
+            ?.checked,
+          totalPrice: totalPrice,
+        };
 
-                    document.body.appendChild(modal);
+        const API =
+          "https://script.google.com/macros/s/AKfycbyi_DtCVqx3XWWBxehqY_wMgejjs7TXyRnKww19y_16xVvHHdx2Fa-NwKt-ExESMXGMUQ/exec";
+        try {
+          const response = await fetch(API, {
+            method: "POST",
+            headers: {},
+            body: JSON.stringify(data),
+          });
 
-                    // Remove modal after 5 seconds
-                    setTimeout(() => {
-                        modal.remove();
-                    }, 5000);
-                } finally {
-                    // Reset button state
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalText;
-                }
-            });
-        </script>
-    </main>
+          // Create modal element
+          const modal = document.createElement("div");
+          modal.className =
+            "fixed top-4 left-1/2 transform -translate-x-1/2 p-4 rounded-lg shadow-lg z-50";
+
+          if (response.ok) {
+            modal.className +=
+              " bg-green-100 border border-green-400 text-green-700";
+            modal.textContent = "Zamówienie złożone pomyślnie!";
+            form.reset();
+          } else {
+            modal.className += " bg-red-100 border border-red-400 text-red-700";
+            modal.textContent =
+              "Upps coś poszło nie tak, złóż zamówienie przez telefon";
+          }
+
+          document.body.appendChild(modal);
+
+          // Remove modal after 5 seconds
+          setTimeout(() => {
+            modal.remove();
+          }, 5000);
+        } finally {
+          // Reset button state
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      });
+    </script>
+  </main>
 </Layout>

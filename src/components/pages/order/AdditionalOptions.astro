@@ -1,0 +1,78 @@
+---
+import { legs, isolation, curtain, terrace, woodBone, additionalOptionsDescriptions } from "./data";
+
+// Default size if none is selected
+const defaultSize = null;
+
+// Function to get price range or single price
+function getPriceDisplay(priceObj) {
+  const prices = Object.values(priceObj);
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  
+  if (minPrice === maxPrice) {
+    return `${minPrice} zł`;
+  } else {
+    return `${minPrice} - ${maxPrice} zł`;
+  }
+}
+
+// Create additional options array with prices for the selected size
+const additionalOptions = [
+  {
+    id: "insulation",
+    name: additionalOptionsDescriptions.isolation.name,
+    description: additionalOptionsDescriptions.isolation.description,
+    price: isolation[defaultSize],
+    priceDisplay: getPriceDisplay(isolation)
+  },
+  {
+    id: "legs",
+    name: additionalOptionsDescriptions.legs.name,
+    description: additionalOptionsDescriptions.legs.description,
+    price: legs[defaultSize],
+    priceDisplay: getPriceDisplay(legs)
+  },
+  {
+    id: "curtain",
+    name: additionalOptionsDescriptions.curtain.name,
+    description: additionalOptionsDescriptions.curtain.description,
+    price: curtain[defaultSize],
+    priceDisplay: getPriceDisplay(curtain)
+  },
+  {
+    id: "terrace",
+    name: additionalOptionsDescriptions.terrace.name,
+    description: additionalOptionsDescriptions.terrace.description,
+    price: terrace[defaultSize],
+    priceDisplay: getPriceDisplay(terrace)
+  },
+  {
+    id: "wood-bone",
+    name: additionalOptionsDescriptions.woodBone.name,
+    description: additionalOptionsDescriptions.woodBone.description,
+    price: woodBone[defaultSize],
+    priceDisplay: getPriceDisplay(woodBone)
+  }
+];
+---
+<div class="mt-12">
+    <h2 class="text-2xl font-semibold text-heading-1 mb-6">Dodatkowe opcje</h2>
+    
+    <div class="space-y-4">
+        {additionalOptions.map(option => (
+            <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
+                <input 
+                    type="checkbox"
+                    id={option.id}
+                    class="w-5 h-5 text-primary border-gray-300 focus:ring-primary"
+                />
+                <div class="ml-4 flex-grow">
+                    <span class="font-medium text-heading-1">{option.name}</span>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">{option.description}</p>
+                </div>
+                <span class="text-primary font-semibold">{option.priceDisplay}</span>
+            </label>
+        ))}
+    </div>
+</div>
