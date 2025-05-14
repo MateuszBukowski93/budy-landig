@@ -25,7 +25,7 @@ function getPriceDisplay(
   if (size && size in priceObj) {
     return `${priceObj[size]} zł`;
   }
-  
+
   // W przeciwnym razie wyświetlamy zakres cen
   const prices = Object.values(priceObj);
   // Sprawdź, czy obiekt cenowy nie jest pusty
@@ -110,7 +110,6 @@ const AdditionalOptions: React.FC<AdditionalOptionsProps> = ({
       },
     ];
   }, [size]); // Zależność hooka useMemo - przeliczaj, gdy zmieni się 'size'
-  console.log({ additionalOptions });
   return (
     <div className="mt-12" id={id}>
       <h2 className="text-2xl font-semibold text-heading-1 mb-6">

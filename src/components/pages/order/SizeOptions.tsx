@@ -47,7 +47,6 @@ const SizeOptions: React.FC<SizeOptionsProps> = ({
   }, [propSizes]);
 
   const handleSizeClick = (size: SizeEntry) => {
-    console.log("handleSizeClick", size);
     if (onSelectSize) {
       onSelectSize(size);
     }

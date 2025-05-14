@@ -14,7 +14,6 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
   selectedOptions,
   totalPrice,
 }) => {
-  console.log("totalPrice", totalPrice);
   return (
     <div className="mt-12 p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg">
       <h2 className="text-2xl font-semibold text-heading-1 mb-6">
