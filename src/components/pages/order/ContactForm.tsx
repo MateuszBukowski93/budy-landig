@@ -17,6 +17,7 @@ interface ContactFormProps {
   handleFormChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   formErrors?: Record<string, string>;
   handleSubmit?: (e: React.FormEvent) => void;
+  id?: string;
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({
@@ -24,6 +25,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
   handleFormChange,
   formErrors = {},
   handleSubmit,
+  id,
 }) => {
   return (
     <div className="mt-12 p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg">

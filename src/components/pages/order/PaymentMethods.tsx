@@ -4,14 +4,16 @@ import { paymentMethods } from "./data";
 interface PaymentMethodsProps {
   onSelectPayment: (method: any) => void;
   selectedPaymentId: string | number;
+  id?: string;
 }
 
 const PaymentMethods: React.FC<PaymentMethodsProps> = ({
   onSelectPayment,
   selectedPaymentId,
+  id,
 }) => {
   return (
-    <div className="mt-12">
+    <div className="mt-12" id={id}>
       <h2 className="text-2xl font-semibold text-heading-1 mb-6">
         Metoda płatności
       </h2>

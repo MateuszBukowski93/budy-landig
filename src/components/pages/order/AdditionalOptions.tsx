@@ -78,35 +78,35 @@ const AdditionalOptions: React.FC<AdditionalOptionsProps> = ({
         name: additionalOptionsDescriptions.isolation.name,
         description: additionalOptionsDescriptions.isolation.description,
         price: insulationPrice, // Cena dla wybranego rozmiaru
-        priceDisplay: getPriceDisplay(isolation), // Wyświetlany zakres cen
+        priceDisplay: getPriceDisplay(isolation, size), // Wyświetlany zakres cen
       },
       {
         id: "legs",
         name: additionalOptionsDescriptions.legs.name,
         description: additionalOptionsDescriptions.legs.description,
         price: legsPrice,
-        priceDisplay: getPriceDisplay(legs),
+        priceDisplay: getPriceDisplay(legs, size),
       },
       {
         id: "curtain",
         name: additionalOptionsDescriptions.curtain.name,
         description: additionalOptionsDescriptions.curtain.description,
         price: curtainPrice,
-        priceDisplay: getPriceDisplay(curtain),
+        priceDisplay: getPriceDisplay(curtain, size),
       },
       {
         id: "terrace",
         name: additionalOptionsDescriptions.terrace.name,
         description: additionalOptionsDescriptions.terrace.description,
         price: terracePrice,
-        priceDisplay: getPriceDisplay(terrace),
+        priceDisplay: getPriceDisplay(terrace, size),
       },
       {
         id: "wood-bone",
         name: additionalOptionsDescriptions.woodBone.name,
         description: additionalOptionsDescriptions.woodBone.description,
         price: woodBonePrice,
-        priceDisplay: getPriceDisplay(woodBone),
+        priceDisplay: getPriceDisplay(woodBone, size),
       },
     ];
   }, [size]); // Zależność hooka useMemo - przeliczaj, gdy zmieni się 'size'

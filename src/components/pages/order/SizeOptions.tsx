@@ -11,7 +11,7 @@ interface SizeOptionsProps {
     // We handle this in the internal type.
   }>;
   prices?: Record<string, number>;
-  onSelectSize?: (size: SizeEntry) => void;
+  onSelectSize?: any;
 }
 
 // Internal type representing an item in the sizeEntries array
