@@ -125,3 +125,17 @@ export const additionalOptionsDescriptions = {
     description: "będzie wisiała nad wejściem do budy",
   },
 };
+
+export type PaymentMethod = {
+  id: string;
+  name: string;
+  description: string;
+  availableFor: string[];
+};
+
+export type DeliveryOption = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+};
