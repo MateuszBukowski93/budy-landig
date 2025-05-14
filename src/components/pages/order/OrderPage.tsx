@@ -210,6 +210,7 @@ const OrderPage: React.FC = () => {
     if (selectedDelivery) {
       let deliveryPriceDisplay = "";
       if (selectedDelivery.id === "company-delivery") {
+        console.log("companyDeliveryCost", companyDeliveryCost);
         deliveryPriceDisplay =
           companyDeliveryCost !== null
             ? ` (+${companyDeliveryCost} zł)`

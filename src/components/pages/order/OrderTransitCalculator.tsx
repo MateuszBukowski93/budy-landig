@@ -75,7 +75,7 @@ async function getRouteDistance(
 
 // ----- Komponent React -----
 
-const OrderTransitCalculator: React.FC = () => {
+const OrderTransitCalculator: React.FC<any> = ({ onCostCalculated }) => {
   // Stan dla wartości inputu kodu pocztowego użytkownika
   const [userPostalCode, setUserPostalCode] = useState("");
   // Stan dla wyświetlanego wyniku (odległość/koszt lub błąd/komunikat)
@@ -115,10 +115,11 @@ const OrderTransitCalculator: React.FC = () => {
       );
 
       const deliveryCost = Math.ceil(distance) * 0.5;
-
+      // setCompanyDeliveryCost(deliveryCost.toFixed(2));
       setCalculationResult(
         `Odległość: ${distance} km, Koszt dostawy: ${deliveryCost.toFixed(2)} zł`
       );
+      onCostCalculated(Number(deliveryCost.toFixed(2)));
     } catch (error: any) {
       console.error("Błąd podczas obliczania:", error);
       setCalculationResult(
