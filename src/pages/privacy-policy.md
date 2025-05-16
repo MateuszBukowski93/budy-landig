@@ -1,4 +1,5 @@
 ---
+layout: ../layouts/MarkdownLayout.astro
 title: "POLITYKA PRYWATNOŚCI"
 description: "Szanujemy Twoją prywatność i jesteśmy świadomi, że powierzając nam informacje o sobie oraz Twojej organizacji obdarzasz nas zaufaniem. W tej Polityce opisujemy w jaki sposób i kiedy zbieramy Twoje dane osobowe, do czego je wykorzystujemy, komu je przekazujemy, jak długo je przechowujemy oraz jakie prawa przysługują Ci w tym kontekście."
 draft: false

@@ -62,6 +62,7 @@ const defaultPayment =
   null; // Wybierz jakąś domyślną jeśli nie znaleziono dla domyślnej dostawy
 
 const OrderPage: React.FC = () => {
+  const [isPrivacyAccepted, setIsPrivacyAccepted] = useState(false);
   // --- Zarządzanie stanem ---
   const [selectedSizeEntry, setSelectedSizeEntry] = useState<SizeEntry | null>(
     // @ts-ignore
@@ -85,7 +86,8 @@ const OrderPage: React.FC = () => {
     lastName: "",
     email: "",
     phone: "",
-    address: "",
+    street: "",
+    houseNumber: "",
     postalCode: "",
     city: "",
     notes: "",
@@ -233,7 +235,7 @@ const OrderPage: React.FC = () => {
       errors.email = "Niepoprawny format email.";
     }
     if (!formData.phone.trim()) errors.phone = "Numer telefonu jest wymagany.";
-    if (!formData.address.trim()) errors.address = "Adres jest wymagany.";
+    if (!formData.street.trim()) errors.street = "Adres jest wymagany.";
     if (!formData.postalCode.trim()) {
       errors.postalCode = "Kod pocztowy jest wymagany.";
     } else if (!/^\d{2}-\d{3}$/.test(formData.postalCode)) {
@@ -429,7 +431,7 @@ const OrderPage: React.FC = () => {
         last_name: formData.lastName,
         email: formData.email,
         phone: formData.phone,
-        address: formData.address,
+        street: formData.street,
         postal_code: formData.postalCode,
         city: formData.city,
         notes: formData.notes || null, // Ustaw na null jeśli puste
@@ -488,7 +490,8 @@ const OrderPage: React.FC = () => {
           lastName: "",
           email: "",
           phone: "",
-          address: "",
+          street: "",
+          houseNumber: "",
           postalCode: "",
           city: "",
           notes: "",
@@ -518,7 +521,8 @@ const OrderPage: React.FC = () => {
       !formData.lastName.trim() ||
       !formData.email.trim() ||
       !formData.phone.trim() ||
-      !formData.address.trim() ||
+      !formData.street.trim() ||
+      !formData.houseNumber.trim() ||
       !formData.postalCode.trim() ||
       !formData.city.trim();
 
@@ -529,7 +533,7 @@ const OrderPage: React.FC = () => {
       (selectedDelivery?.id === "company-delivery" &&
         companyDeliveryCost === null); // Wymaga obliczenia kosztu firmowej
 
-    return isLoading || isFormIncomplete || isOrderConfigIncomplete;
+    return isLoading || isFormIncomplete || isOrderConfigIncomplete || !isPrivacyAccepted;
   }, [
     isLoading,
     formData,
@@ -537,6 +541,7 @@ const OrderPage: React.FC = () => {
     selectedDelivery,
     selectedPayment,
     companyDeliveryCost,
+    isPrivacyAccepted
   ]);
 
   // Pobierz klucz rozmiaru dla komponentów podrzędnych
@@ -630,10 +635,40 @@ const OrderPage: React.FC = () => {
         </div>
       )}
 
+<div className="mt-6 flex flex-col items-start gap-2">
+  <div className="flex items-start gap-2">
+    <input
+      type="checkbox"
+      id="privacy-acceptance"
+      checked={isPrivacyAccepted}
+      onChange={(e) => setIsPrivacyAccepted(e.target.checked)}
+      className="mt-1"
+    />
+    <label htmlFor="privacy-policy" className="text-sm">
+      Akceptuję{" "}
+      <a
+        href="/privacy-policy"
+        className="text-blue-600 underline hover:text-blue-800"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        politykę prywatności
+      </a>
+    </label>
+  </div>
+
+  {!isPrivacyAccepted && submissionError === null && (
+    <p className="text-sm text-red-600 mt-1">
+      Musisz zaakceptować politykę prywatności, aby kontynuować.
+    </p>
+  )}
+</div>
+
+
       <button
         className="mt-8 w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
         onClick={handleSubmit}
-        // disabled={isSubmitButtonDisabled} // Użyj memoizowanej wartości
+        disabled={isSubmitButtonDisabled} // Użyj memoizowanej wartości
       >
         {isLoading ? "Przetwarzanie..." : "Złóż zamówienie"}
       </button>

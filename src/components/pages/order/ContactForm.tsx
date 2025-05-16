@@ -9,6 +9,7 @@ interface ContactFormProps {
     firstName?: string;
     lastName?: string;
     phone?: string;
+    email?: string;
     street?: string;
     houseNumber?: string;
     postalCode?: string;
@@ -86,7 +87,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
           </div>
         </div>
 
-        <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
           <label
             htmlFor="phone"
             className="block text-sm font-medium text-heading-3 mb-1"
@@ -109,6 +111,31 @@ const ContactForm: React.FC<ContactFormProps> = ({
             <p className="text-red-500 text-xs mt-1">{formErrors.phone}</p>
           )}
         </div>
+
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-heading-3 mb-1"
+          >
+            Adres e-mail
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            className={`w-full px-4 py-2 border ${
+              formErrors.email ? "border-red-500" : "border-gray-200"
+            } rounded-lg focus:outline-none focus:border-primary`}
+            placeholder="Wprowadź adres e-mail"
+            value={formData.email || ""}
+            onChange={handleFormChange}
+          />
+          {formErrors.email && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>
+          )}
+        </div>
+      </div>
 
         <div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
