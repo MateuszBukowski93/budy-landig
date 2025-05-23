@@ -81,25 +81,25 @@ export const sizes = {
     name: "Mała Buda",
     dimensions: "50x60 cm",
     description: "Idealna dla małych psów do 10kg",
-    price: 300,
+    price: 350,
   },
   medium: {
     name: "Średnia Buda",
     dimensions: "60x80 cm",
     description: "Odpowiednia dla psów średniej wielkości 10-25kg",
-    price: 400,
+    price: 500,
   },
   large: {
     name: "Duża Buda",
     dimensions: "70x100 cm",
     description: "Dla dużych psów 25-45kg",
-    price: 500,
+    price: 600,
   },
   xlarge: {
     name: "Bardzo Duża Buda",
     dimensions: "90x120 cm",
     description: "Dla największych ras powyżej 45kg",
-    price: 600,
+    price: 800,
   },
 };
 export const additionalOptionsDescriptions = {

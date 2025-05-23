@@ -18,7 +18,7 @@ const services = [
       "Przeznaczenie: psy średniej wielkości.",
       "Zakres wagowy: 15–30 kg.",
       "Przykłady ras: bokser, beagle, cocker spaniel, średni kundelek.",
-      "Cena: 600zł",
+      "Cena: 500zł",
     ],
   },
   {
@@ -27,7 +27,7 @@ const services = [
       "Przeznaczenie: psy duże.",
       "Zakres wagowy: 30–45 kg.",
       "Przykłady ras: owczarek niemiecki, golden retriever, labrador, duży kundelek.",
-      "Cena: 700zł",
+      "Cena: 600zł",
     ],
   },
   {
@@ -36,7 +36,7 @@ const services = [
       "Przeznaczenie: psy bardzo duże.",
       "Zakres wagowy: 45 kg i więcej.",
       "Przykłady ras: bernardyn, dog niemiecki, mastif, bardzo duży kundelek.",
-      "Cena: 900zł",
+      "Cena: 800zł",
     ],
   },
   {
