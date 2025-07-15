@@ -1,15 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import {
-  sizes,
-  legs,
-  isolation,
-  curtain,
-  terrace,
-  woodBone,
-  additionalOptionsDescriptions,
-  deliveryOptions,
-  paymentMethods,
-} from "./data"; // Dostosuj ścieżkę
+import { sizes, legs, isolation, curtain, terrace, woodBone, additionalOptionsDescriptions, deliveryOptions, paymentMethods } from "./data"; // Dostosuj ścieżkę
 
 // Importuj komponenty podrzędne
 import SizeOptions from "./SizeOptions";
@@ -50,16 +40,9 @@ interface PaymentMethod {
 }
 
 // Znajdź domyślne opcje przy starcie
-const defaultDelivery =
-  deliveryOptions.find((opt: DeliveryOption) => opt.default) ||
-  deliveryOptions[0] ||
-  null;
+const defaultDelivery = deliveryOptions.find((opt: DeliveryOption) => opt.default) || deliveryOptions[0] || null;
 const defaultPayment =
-  paymentMethods.find((method: PaymentMethod) =>
-    method.availableFor.includes(defaultDelivery?.id || "")
-  ) ||
-  paymentMethods.filter((method) => method.availableFor.length > 0)[0] ||
-  null; // Wybierz jakąś domyślną jeśli nie znaleziono dla domyślnej dostawy
+  paymentMethods.find((method: PaymentMethod) => method.availableFor.includes(defaultDelivery?.id || "")) || paymentMethods.filter((method) => method.availableFor.length > 0)[0] || null; // Wybierz jakąś domyślną jeśli nie znaleziono dla domyślnej dostawy
 
 const OrderPage: React.FC = () => {
   const [isPrivacyAccepted, setIsPrivacyAccepted] = useState(false);
@@ -68,17 +51,10 @@ const OrderPage: React.FC = () => {
     // @ts-ignore
     sizes[Object.keys(sizes)[0]] || null // Domyślnie wybieramy pierwszy rozmiar
   );
-  const [selectedAdditionalOptions, setSelectedAdditionalOptions] = useState<
-    SelectedAdditionalOption[]
-  >([]);
-  const [selectedDelivery, setSelectedDelivery] =
-    useState<DeliveryOption | null>(defaultDelivery);
-  const [selectedPayment, setSelectedPayment] = useState<PaymentMethod | null>(
-    defaultPayment
-  );
-  const [companyDeliveryCost, setCompanyDeliveryCost] = useState<number | null>(
-    null
-  ); // Koszt dostawy firmowej obliczony przez kalkulator
+  const [selectedAdditionalOptions, setSelectedAdditionalOptions] = useState<SelectedAdditionalOption[]>([]);
+  const [selectedDelivery, setSelectedDelivery] = useState<DeliveryOption | null>(defaultDelivery);
+  const [selectedPayment, setSelectedPayment] = useState<PaymentMethod | null>(defaultPayment);
+  const [companyDeliveryCost, setCompanyDeliveryCost] = useState<number | null>(null); // Koszt dostawy firmowej obliczony przez kalkulator
 
   // Stan formularza kontaktowego
   const [formData, setFormData] = useState({
@@ -103,9 +79,7 @@ const OrderPage: React.FC = () => {
 
   // --- Handlery zmiany stanu ---
 
-  const handleFormChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -126,10 +100,7 @@ const OrderPage: React.FC = () => {
     // W twoim kodzie AdditionalOptions component już to obsługuje w oparciu o prop `size`
   };
 
-  const handleToggleAdditionalOption = (
-    optionId: string,
-    isChecked: boolean
-  ) => {
+  const handleToggleAdditionalOption = (optionId: string, isChecked: boolean) => {
     const currentSizeKey = selectedSizeEntry
       ? // @ts-ignore
         Object.keys(sizes).find((key) => sizes[key] === selectedSizeEntry)
@@ -204,13 +175,8 @@ const OrderPage: React.FC = () => {
       setCompanyDeliveryCost(null);
     }
     // Zresetuj wybraną metodę płatności, jeśli nowa dostawa jej nie obsługuje
-    const availableMethodsForNewDelivery = paymentMethods.filter((method) =>
-      method.availableFor.includes(option.id)
-    );
-    if (
-      selectedPayment &&
-      !availableMethodsForNewDelivery.find((m) => m.id === selectedPayment.id)
-    ) {
+    const availableMethodsForNewDelivery = paymentMethods.filter((method) => method.availableFor.includes(option.id));
+    if (selectedPayment && !availableMethodsForNewDelivery.find((m) => m.id === selectedPayment.id)) {
       setSelectedPayment(availableMethodsForNewDelivery[0] || null); // Wybierz pierwszą dostępną
     }
   };
@@ -267,8 +233,7 @@ const OrderPage: React.FC = () => {
     if (selectedDelivery) {
       if (selectedDelivery.id === "company-delivery") {
         // Użyj obliczonego kosztu dla dostawy firmowej, jeśli jest dostępny
-        finalDeliveryCost =
-          companyDeliveryCost !== null ? companyDeliveryCost : 0;
+        finalDeliveryCost = companyDeliveryCost !== null ? companyDeliveryCost : 0;
       } else if (typeof selectedDelivery.price === "number") {
         // Użyj stałego kosztu dla innych metod dostawy
         finalDeliveryCost = selectedDelivery.price;
@@ -280,12 +245,7 @@ const OrderPage: React.FC = () => {
     // TODO: Opcjonalnie dodać koszt płatności, jeśli jakieś metody płatności są płatne
 
     return total;
-  }, [
-    selectedSizeEntry,
-    selectedAdditionalOptions,
-    selectedDelivery,
-    companyDeliveryCost,
-  ]);
+  }, [selectedSizeEntry, selectedAdditionalOptions, selectedDelivery, companyDeliveryCost]);
 
   // --- Przygotowanie danych dla podsumowania (memoizowane) ---
   const summaryItems = useMemo(() => {
@@ -314,16 +274,10 @@ const OrderPage: React.FC = () => {
 
       if (selectedDelivery.id === "company-delivery") {
         deliveryPrice = companyDeliveryCost; // Użyj obliczonego kosztu
-        deliveryPriceDescription =
-          companyDeliveryCost !== null
-            ? `+${companyDeliveryCost} zł`
-            : "Koszt do ustalenia";
+        deliveryPriceDescription = companyDeliveryCost !== null ? `+${companyDeliveryCost} zł` : "Koszt do ustalenia";
       } else if (typeof selectedDelivery.price === "number") {
         deliveryPrice = selectedDelivery.price; // Użyj stałego kosztu
-        deliveryPriceDescription =
-          selectedDelivery.price > 0
-            ? `+${selectedDelivery.price} zł`
-            : "Gratis";
+        deliveryPriceDescription = selectedDelivery.price > 0 ? `+${selectedDelivery.price} zł` : "Gratis";
       } else {
         deliveryPrice = 0; // Dla ceny jako string np. "Gratis"
         deliveryPriceDescription = String(selectedDelivery.price);
@@ -342,13 +296,7 @@ const OrderPage: React.FC = () => {
     }
 
     return items;
-  }, [
-    selectedSizeEntry,
-    selectedAdditionalOptions,
-    selectedDelivery,
-    selectedPayment,
-    companyDeliveryCost,
-  ]);
+  }, [selectedSizeEntry, selectedAdditionalOptions, selectedDelivery, selectedPayment, companyDeliveryCost]);
 
   // --- Handlery wysyłki zamówienia ---
   const handleSubmit = async (e: React.FormEvent) => {
@@ -380,33 +328,22 @@ const OrderPage: React.FC = () => {
     // 2. Walidacja wybranych opcji zamówienia
     if (!selectedSizeEntry) {
       setSubmissionError("Proszę wybrać rozmiar budy.");
-      document
-        .getElementById("size-options-section")
-        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      document.getElementById("size-options-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
     if (!selectedDelivery) {
       setSubmissionError("Proszę wybrać metodę dostawy.");
-      document
-        .getElementById("delivery-options-section")
-        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      document.getElementById("delivery-options-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
-    if (
-      selectedDelivery.id === "company-delivery" &&
-      companyDeliveryCost === null
-    ) {
+    if (selectedDelivery.id === "company-delivery" && companyDeliveryCost === null) {
       setSubmissionError("Proszę obliczyć koszt dostawy firmowej.");
-      document
-        .getElementById("transit-calculator-section")
-        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      document.getElementById("transit-calculator-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
     if (!selectedPayment) {
       setSubmissionError("Proszę wybrać metodę płatności.");
-      document
-        .getElementById("payment-methods-section")
-        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      document.getElementById("payment-methods-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
 
@@ -416,13 +353,7 @@ const OrderPage: React.FC = () => {
         Object.keys(sizes).find((key) => sizes[key] === selectedSizeEntry)
       : null;
 
-    const finalDeliveryCost = selectedDelivery
-      ? selectedDelivery.id === "company-delivery"
-        ? companyDeliveryCost
-        : typeof selectedDelivery.price === "number"
-          ? selectedDelivery.price
-          : 0
-      : null; // Koszt jest 0 jeśli cena to string "Gratis" lub dostawa nie wybrana
+    const finalDeliveryCost = selectedDelivery ? (selectedDelivery.id === "company-delivery" ? companyDeliveryCost : typeof selectedDelivery.price === "number" ? selectedDelivery.price : 0) : null; // Koszt jest 0 jeśli cena to string "Gratis" lub dostawa nie wybrana
 
     const orderDataForDb = {
       // Dane kontaktowe
@@ -432,6 +363,7 @@ const OrderPage: React.FC = () => {
         email: formData.email,
         phone: formData.phone,
         street: formData.street,
+        house_number: formData.houseNumber,
         postal_code: formData.postalCode,
         city: formData.city,
         notes: formData.notes || null, // Ustaw na null jeśli puste
@@ -478,9 +410,7 @@ const OrderPage: React.FC = () => {
 
       if (error) {
         console.error("Błąd podczas wysyłki zamówienia:", error);
-        setSubmissionError(
-          `Wystąpił błąd podczas składania zamówienia: ${error.message}. Proszę spróbować ponownie.`
-        );
+        setSubmissionError(`Wystąpił błąd podczas składania zamówienia: ${error.message}. Proszę spróbować ponownie.`);
       } else {
         console.log("Zamówienie złożone pomyślnie:", data);
         setSubmissionSuccess(true); // Ustaw stan sukcesu
@@ -506,9 +436,7 @@ const OrderPage: React.FC = () => {
       }
     } catch (error: any) {
       console.error("Nieoczekiwany błąd podczas wysyłki:", error);
-      setSubmissionError(
-        `Wystąpił nieoczekiwany błąd: ${error.message}. Proszę spróbować ponownie.`
-      );
+      setSubmissionError(`Wystąpił nieoczekiwany błąd: ${error.message}. Proszę spróbować ponownie.`);
     } finally {
       setIsLoading(false); // Zakończ ładowanie
     }
@@ -526,23 +454,10 @@ const OrderPage: React.FC = () => {
       !formData.postalCode.trim() ||
       !formData.city.trim();
 
-    const isOrderConfigIncomplete =
-      !selectedSizeEntry ||
-      !selectedDelivery ||
-      !selectedPayment ||
-      (selectedDelivery?.id === "company-delivery" &&
-        companyDeliveryCost === null); // Wymaga obliczenia kosztu firmowej
+    const isOrderConfigIncomplete = !selectedSizeEntry || !selectedDelivery || !selectedPayment || (selectedDelivery?.id === "company-delivery" && companyDeliveryCost === null); // Wymaga obliczenia kosztu firmowej
 
     return isLoading || isFormIncomplete || isOrderConfigIncomplete || !isPrivacyAccepted;
-  }, [
-    isLoading,
-    formData,
-    selectedSizeEntry,
-    selectedDelivery,
-    selectedPayment,
-    companyDeliveryCost,
-    isPrivacyAccepted
-  ]);
+  }, [isLoading, formData, selectedSizeEntry, selectedDelivery, selectedPayment, companyDeliveryCost, isPrivacyAccepted]);
 
   // Pobierz klucz rozmiaru dla komponentów podrzędnych
   const currentSizeKey = selectedSizeEntry
@@ -552,22 +467,15 @@ const OrderPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center text-heading-1 mb-12">
-        Konfigurator Zamówienia Budy
-      </h1>
+      <h1 className="text-3xl font-bold text-center text-heading-1 mb-12">Konfigurator Zamówienia Budy</h1>
 
       <div className="mt-12" id="size-options-section">
         {" "}
         {/* Dodane ID */}
-        <h2 className="text-2xl font-semibold text-heading-1 mb-6">
-          Wybierz Rozmiar
-        </h2>
+        <h2 className="text-2xl font-semibold text-heading-1 mb-6">Wybierz Rozmiar</h2>
         {/* Sprawdzamy, czy sizes jest obiektem i ma klucze przed przekazaniem wartości */}
         {Object.keys(sizes).length > 0 ? (
-          <SizeOptions
-            sizes={Object.values(sizes)}
-            onSelectSize={handleSelectSize}
-          />
+          <SizeOptions sizes={Object.values(sizes)} onSelectSize={handleSelectSize} />
         ) : (
           <p>Brak dostępnych rozmiarów.</p> // Komunikat, gdy brak danych
         )}
@@ -590,9 +498,7 @@ const OrderPage: React.FC = () => {
         <div id="transit-calculator-section">
           {" "}
           {/* Dodane ID */}
-          <OrderTransitCalculator
-            onCostCalculated={handleCompanyDeliveryCostCalculated}
-          />
+          <OrderTransitCalculator onCostCalculated={handleCompanyDeliveryCostCalculated} />
         </div>
       )}
 
@@ -602,10 +508,7 @@ const OrderPage: React.FC = () => {
         id="payment-methods-section" // Dodane ID
       />
 
-      <OrderSummary
-        selectedOptions={summaryItems}
-        totalPrice={totalOrderPrice}
-      />
+      <OrderSummary selectedOptions={summaryItems} totalPrice={totalOrderPrice} />
 
       <ContactForm
         formData={formData}
@@ -618,52 +521,29 @@ const OrderPage: React.FC = () => {
 
       {/* Sekcja komunikatów */}
       {submissionError && (
-        <div
-          className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded"
-          role="alert"
-        >
+        <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded" role="alert">
           {submissionError}
         </div>
       )}
       {submissionSuccess && (
-        <div
-          className="mt-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded"
-          role="alert"
-        >
-          Twoje zamówienie zostało złożone pomyślnie! Skontaktujemy się z Tobą
-          wkrótce.
+        <div className="mt-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded" role="alert">
+          Twoje zamówienie zostało złożone pomyślnie! Skontaktujemy się z Tobą wkrótce.
         </div>
       )}
 
-<div className="mt-6 flex flex-col items-start gap-2">
-  <div className="flex items-start gap-2">
-    <input
-      type="checkbox"
-      id="privacy-acceptance"
-      checked={isPrivacyAccepted}
-      onChange={(e) => setIsPrivacyAccepted(e.target.checked)}
-      className="mt-1"
-    />
-    <label htmlFor="privacy-policy" className="text-sm">
-      Akceptuję{" "}
-      <a
-        href="/privacy-policy"
-        className="text-blue-600 underline hover:text-blue-800"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        politykę prywatności
-      </a>
-    </label>
-  </div>
+      <div className="mt-6 flex flex-col items-start gap-2">
+        <div className="flex items-start gap-2">
+          <input type="checkbox" id="privacy-acceptance" checked={isPrivacyAccepted} onChange={(e) => setIsPrivacyAccepted(e.target.checked)} className="mt-1" />
+          <label htmlFor="privacy-policy" className="text-sm">
+            Akceptuję{" "}
+            <a href="/privacy-policy" className="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener noreferrer">
+              politykę prywatności
+            </a>
+          </label>
+        </div>
 
-  {!isPrivacyAccepted && submissionError === null && (
-    <p className="text-sm text-red-600 mt-1">
-      Musisz zaakceptować politykę prywatności, aby kontynuować.
-    </p>
-  )}
-</div>
-
+        {!isPrivacyAccepted && submissionError === null && <p className="text-sm text-red-600 mt-1">Musisz zaakceptować politykę prywatności, aby kontynuować.</p>}
+      </div>
 
       <button
         className="mt-8 w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
