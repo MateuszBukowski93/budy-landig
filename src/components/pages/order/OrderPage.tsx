@@ -55,6 +55,8 @@ const OrderPage: React.FC = () => {
   const [selectedDelivery, setSelectedDelivery] = useState<DeliveryOption | null>(defaultDelivery);
   const [selectedPayment, setSelectedPayment] = useState<PaymentMethod | null>(defaultPayment);
   const [companyDeliveryCost, setCompanyDeliveryCost] = useState<number | null>(null); // Koszt dostawy firmowej obliczony przez kalkulator
+  const [consentForFeedback, setConsentForFeedback] = useState(false);
+  const [consentForPublication, setConsentForPublication] = useState(false);
 
   // Stan formularza kontaktowego
   const [formData, setFormData] = useState({
@@ -399,6 +401,10 @@ const OrderPage: React.FC = () => {
 
       // Status zamówienia (domyślnie pending)
       status: "pending",
+      consents: {
+        feedback_contact: consentForFeedback,
+        opinion_publication: consentForFeedback && consentForPublication, // publikacja tylko jeśli oba są zaznaczone
+      },
     };
 
     // 4. Wysyłka danych do Supabase
@@ -543,6 +549,32 @@ const OrderPage: React.FC = () => {
         </div>
 
         {!isPrivacyAccepted && submissionError === null && <p className="text-sm text-red-600 mt-1">Musisz zaakceptować politykę prywatności, aby kontynuować.</p>}
+      </div>
+      <div className="flex flex-col gap-2 mt-4">
+        <div className="flex items-start gap-2">
+          <input
+            type="checkbox"
+            id="consent-feedback"
+            checked={consentForFeedback}
+            onChange={(e) => {
+              setConsentForFeedback(e.target.checked);
+              if (!e.target.checked) setConsentForPublication(false); // wyczyść drugi, jeśli pierwszy odznaczony
+            }}
+            className="mt-1"
+          />
+          <label htmlFor="consent-feedback" className="text-sm">
+            Wyrażam zgodę na kontakt w celu zebrania opinii o produkcie.
+          </label>
+        </div>
+
+        {consentForFeedback && (
+          <div className="flex items-start gap-2 ml-4">
+            <input type="checkbox" id="consent-publication" checked={consentForPublication} onChange={(e) => setConsentForPublication(e.target.checked)} className="mt-1" />
+            <label htmlFor="consent-publication" className="text-sm">
+              Wyrażam zgodę na opublikowanie mojej opinii na stronie internetowej.
+            </label>
+          </div>
+        )}
       </div>
 
       <button

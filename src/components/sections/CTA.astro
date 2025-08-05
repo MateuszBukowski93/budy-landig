@@ -13,7 +13,7 @@ export interface Props {
 const { className } = Astro.props;
 ---
 
-<section id="ctaOrder" class=`pb-20 ${className}`>
+<section id="ctaOrder" class={`pb-20 ${className}`}>
   <Container>
     <div
       class="w-full relative py-8 md:py-10 px-6 md:px-8 rounded-2xl bg-gradient-to-br from-slate-100 to-zinc-200 dark:from-slate-800 dark:to-zinc-800"
@@ -24,8 +24,6 @@ const { className } = Astro.props;
           font-bold text-heading-1"
         >
           Gotowy na Zamówienie
-
-          <!-- <GradiantText> Zamówienie </GradiantText> -->
           <GradiantText> Domu </GradiantText>
           dla
           <GradiantText> Twojego Pupila </GradiantText>
@@ -35,19 +33,19 @@ const { className } = Astro.props;
           Zadzwoń już dziś i zamów. Zamówinia realizujemy w ciągu 7 dni roboczych, których potrzebujemy na stworzenie twojej budy. Następnie wysyłamy ją do Twojego domu, lub sam wygodnie odbierasz ją z naszej stolarni.
         </Paragraph>
         <div class="mx-auto max-w-md sm:max-w-xl pt-10">
-          <CtaButton />
-
+          <CtaButton data-track-button="cta_order_call" />
+          <!-- jeśli CtaButton to np. button/link, upewnij się, że akceptuje i przekazuje dalej atrybuty -->
         </div>
-          <div class="mt-4">
-            <BtnLink
-              text="Zamów przez formularz" 
-              href="/order"
-              className="flex justify-center w-full sm:w-max m-auto"
-              variant="primary"
-            />
-          </div>
-
-
+        <div class="mt-4">
+          <BtnLink
+            text="Zamów przez formularz" 
+            href="/order"
+            className="flex justify-center w-full sm:w-max m-auto"
+            variant="primary"
+            data-track-button="cta_order_form"
+            data-clicked-in="page"
+          />
+        </div>
       </div>
     </div>
   </Container>

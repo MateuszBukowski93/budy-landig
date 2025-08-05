@@ -1,48 +1,8 @@
 ---
-import GroupFooterNav from "../components/blocks/GroupFooterNav.astro";
 import Container from "../components/shared/Container.astro";
-import FooterNav from "../components/shared/FooterNav.astro";
 import Paragraph from "../components/shared/Paragraph.astro";
 import Logo from "../assets/logos/hfp.png";
-import { Image } from 'astro:assets';
-
-const footerNav1 = [
-  {
-    itemText: "Marketing",
-    itemLink: "#",
-  },
-  {
-    itemText: "Analylitics",
-    itemLink: "#",
-  },
-  {
-    itemText: "Commerce",
-    itemLink: "#",
-  },
-  {
-    itemText: "Insights",
-    itemLink: "#",
-  },
-];
-
-const footerSupport = [
-  {
-    itemText: "Pricing",
-    itemLink: "#",
-  },
-  {
-    itemText: "Guides",
-    itemLink: "#",
-  },
-  {
-    itemText: "FAQ",
-    itemLink: "#",
-  },
-  {
-    itemText: "Contact",
-    itemLink: "#",
-  },
-];
+import { Image } from "astro:assets";
 
 const footerCompany = [
   {
@@ -51,128 +11,98 @@ const footerCompany = [
   },
   {
     itemText: "Adres: Parzeń 10, 09-411 Biała",
-    itemLink: "https://www.google.com/maps/place/Parze%C5%84+10,+09-413+Parze%C5%84/@52.6513358,19.5579076,17z/data=!3m1!4b1!4m6!3m5!1s0x471c62dff66038c7:0x4d30f4b157bb976c!8m2!3d52.6513326!4d19.5604825!16s%2Fg%2F11j15kxv5d?entry=ttu&g_ep=EgoyMDI1MDIxNy4wIKXMDSoASAFQAw%3D%3D",
-  },
-
-  // {
-  //   itemText: "email: kontakt@housefor.pet",
-  //   itemLink: "mailto:kontakt@housefor.pet",
-  // },
-];
-const footerLegal = [
-  {
-    itemText: "Claim",
-    itemLink: "#",
-  },
-  {
-    itemText: "Privacy",
-    itemLink: "#",
-  },
-  {
-    itemText: "Terms",
-    itemLink: "#",
+    itemLink: "https://www.google.com/maps/place/Parze%C5%84+10,+09-413+Parze%C5%84",
   },
 ];
 ---
 
 <div class="relative mt-16">
-  <span
-    class="w-20 h-20 rounded-full bg-gradient-to-br from-sky-500 from-0% via-primary via-80% to-green-600 to-110% absolute left-1/3 bottom-1/3"
-  ></span>
-  <span
-    class="w-40 h-40 rounded-full bg-gradient-to-br from-yellow-400 from-0% via-green-600 via-60% via-sky-700 via-85% to-primary to-100% absolute right-1 top-2/4"
-  ></span>
-  <span
-    class="w-40 h-40 rounded-full bg-gradient-to-br from-sky-500 from-0% via-primary via-80% to-green-600 to-110% absolute right-1/4 bottom-0"
-  ></span>
-  <span
-    class="w-20 h-20 rounded-full bg-gradient-to-br from-green-500 from-0% via-primary via-80% to-sky-600 to-110% absolute right-1/3 top-1/3"
-  ></span>
+  <!-- Gradientowe tła -->
+  <span class="w-20 h-20 rounded-full bg-gradient-to-br from-sky-500 via-primary to-green-600 absolute left-1/3 bottom-1/3"></span>
+  <span class="w-40 h-40 rounded-full bg-gradient-to-br from-yellow-400 via-green-600 via-sky-700 to-primary absolute right-1 top-2/4"></span>
+  <span class="w-40 h-40 rounded-full bg-gradient-to-br from-sky-500 via-primary to-green-600 absolute right-1/4 bottom-0"></span>
+  <span class="w-20 h-20 rounded-full bg-gradient-to-br from-green-500 via-primary to-sky-600 absolute right-1/3 top-1/3"></span>
+  <span class="w-40 h-40 rounded-full bg-gradient-to-br from-green-500 via-primary to-sky-600 absolute left-0 top-1/3"></span>
 
-  <span
-    class="w-40 h-40 rounded-full bg-gradient-to-br from-green-500 from-0% via-primary via-80% to-sky-600 to-110% absolute left-0 top-1/3"
-  ></span>
-  <footer
-    class="relative bg-gradient-to-tr from-slate-100/85 to-zinc-200/85 dark:from-slate-800/85 dark:to-zinc-800/85 pt-28 rounded-t-3xl backdrop-blur-md"
-  >
-    <Container className="pb-8 relative overflow-auto ">
-      <div
-        class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative"
-      >
+  <!-- Footer -->
+  <footer id="site-footer" class="relative bg-gradient-to-tr from-slate-100/85 to-zinc-200/85 dark:from-slate-800/85 dark:to-zinc-800/85 pt-28 rounded-t-3xl backdrop-blur-md">
+    <Container className="pb-8 relative overflow-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
+        <!-- Kolumna 1 -->
         <div class="h-auto flex flex-col">
-          <div class="h-full">
-            <a href="#" class="relative flex items-center gap-3">
-              <Image
-              src={Logo}
-              alt="Zdjęcie budy dla psa"
-              quality={100}
-              loading="lazy"
-            height={80}
-            />
+          <a href="/" class="relative flex items-center gap-3">
+            <Image src={Logo} alt="Zdjęcie budy dla psa" quality={100} loading="lazy" height={80} />
+          </a>
+          <Paragraph className="mt-8">
+            Z pasją tworzymy przestrzenie, które stają się drugim domem dla czworonożnych przyjaciół, dbając o każdy detal i potrzeby zarówno małych, jak i dużych psów.
+          </Paragraph>
+          <div class="mt-10">
+            <a
+              href="/privacy-policy"
+              class="text-5xl font-semibold text-black hover:text-primary transition-colors"
+              data-track-button="footer_button"
+              data-clicked-in="footer"
+            >
+              Polityka prywatności
             </a>
-            <Paragraph className={"mt-8"}>
-              Z pasją tworzymy przestrzenie, które stają się drugim domem dla czworonożnych przyjaciół, dbając o każdy detal i potrzeby zarówno małych, jak i dużych psów
-            </Paragraph>
-            <div class="mt-10">
-              <a
-                href="/privacy-policy"
-                class="text-5x1 font-semibold text-black hover:text-primary transition-colors "
-                >
-                Polityka prywatności
-              </a>
-            </div>
           </div>
-
-          <!-- social links
-          <div class="min-h-max flex items-center gap-4 text-heading-3 mt-8">
-          
-          </div> -->
         </div>
 
-        <!-- <GroupFooterNav> -->
-          <FooterNav title={"Dane firmy"} navItems={footerCompany} />
-          <!-- <FooterNav title={"Solutions"} navItems={footerNav1} /> -->
-          <div class="h-auto">
-            <h2 class="font-semibold text-heading-1 mb-4">Nasza lokalizacja</h2>
-            <div class="h-[300px] w-full rounded-lg overflow-hidden">
-              <iframe 
-                width="100%" 
-                height="100%" 
-                frameborder="0" 
-                scrolling="no" 
-                marginheight="0"
-                marginwidth="0" 
-                <iframe width="600" height="450" src="https://www.openstreetmap.org/export/embed.html?bbox=19.556093%2C52.653452%2C19.568818%2C52.649235&layer=mapnik&marker=52.6512700,19.5605000" style="border: 1px solid black"></iframe>
+        <!-- Kolumna 2 -->
+        <div>
+          <h2 class="font-semibold text-heading-1 mb-4">Dane firmy</h2>
+          <ul class="space-y-3">
+            {footerCompany.map((item) => (
+              <li>
+                <a
+                  href={item.itemLink}
+                  class="text-base hover:text-primary transition-colors"
+                  data-track-button="footer_button"
+                  data-clicked-in="footer"
+                >
+                  {item.itemText}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-                style="border: 1px solid #ddd;"
-              ></iframe>
-              <a href="https://www.openstreetmap.org/?mlat=52.5849&mlon=19.6849#map=16/52.5849/19.6849" 
-                 target="_blank"
-                 class="text-sm text-primary hover:underline">
-                Zobacz większą mapę
-              </a>
-            </div>
+        <!-- Kolumna 3 -->
+        <div class="h-auto">
+          <h2 class="font-semibold text-heading-1 mb-4">Nasza lokalizacja</h2>
+          <div class="h-[300px] w-full rounded-lg overflow-hidden">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=19.556093%2C52.653452%2C19.568818%2C52.649235&layer=mapnik&marker=52.6512700,19.5605000"
+              style="border: 1px solid #ddd;"
+              loading="lazy"
+            ></iframe>
+            <a
+              href="https://www.openstreetmap.org/?mlat=52.5849&mlon=19.6849#map=16/52.5849/19.6849"
+              target="_blank"
+              class="text-sm text-primary hover:underline"
+              data-track-button=""="footer_button"
+              data-clicked-in="footer"
+            >
+              Zobacz większą mapę
+            </a>
           </div>
-        <!-- </GroupFooterNav> -->
+        </div>
       </div>
     </Container>
+
     <div class="py-2 relative">
       <Container>
-        <div
-          class="flex justify-between items-center gap-6 md:text-lg text-heading-3"
-        >
+        <div class="flex justify-between items-center gap-6 md:text-lg text-heading-3">
+          <div>&copy; <span id="year">{new Date().getFullYear()}</span> HouseFor.Pet</div>
           <div>
-            &copy; <span id="year"></span> HouseFor.Pet
-          </div>
-          <div>
-            Made by <a
-              href="https://develoart.com"
-              target="_blank"
-              class="font-semibold">DeveloArt</a
-            >
+            Made by <a href="https://develoart.com" target="_blank" class="font-semibold" data-track-button="footer_button" data-clicked-in="footer">DeveloArt</a>
           </div>
         </div>
       </Container>
     </div>
   </footer>
+
+ 
 </div>
