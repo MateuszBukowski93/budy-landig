@@ -4,7 +4,7 @@ export interface Props {
   text: string;
   className?: string;
   variant: "primary" | "secondary";
-  [key: string]: any; // <-- obsługa np. data-track-menu
+  [key: string]: any; 
 }
 
 const { href, text, className, variant, ...rest } = Astro.props;

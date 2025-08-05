@@ -11,19 +11,6 @@ function logEvent({ eventName, data }) {
   const sessionId = getSessionId();
   const pageUrl = window.location.pathname;
 
-  // 🔵 Własna analityka
-  fetch("/api/log-event", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      event_name: eventName,
-      session_id: sessionId,
-      page_url: pageUrl,
-      data,
-    }),
-  }).catch((err) => console.error(`Błąd logowania ${eventName} do własnego API:`, err));
-
-  // 🟢 Vercel Analytics
   if (typeof window.va?.track === "function") {
     try {
       window.va.track(eventName, {
@@ -34,24 +21,6 @@ function logEvent({ eventName, data }) {
     } catch (err) {
       console.warn("Błąd podczas wysyłania zdarzenia do Vercel Analytics:", err);
     }
-  }
-
-  // 🔴 Google Analytics (GA4)
-  if (typeof window.gtag === "function") {
-    try {
-      window.gtag("event", eventName, {
-        ...data,
-        page_url: pageUrl,
-        session_id: sessionId,
-      });
-    } catch (err) {
-      console.warn("Błąd podczas wysyłania zdarzenia do Google Analytics:", err);
-    }
-  }
-
-  // 🔸 Dev console fallback
-  if (typeof window.va?.track !== "function" && typeof window.gtag !== "function") {
-    console.log("Event (dev):", eventName, data);
   }
 }
 

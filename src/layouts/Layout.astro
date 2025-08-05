@@ -9,7 +9,6 @@ export interface Props {
 }
 
 const { title } = Astro.props;
-const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 
 <html lang="en">
@@ -26,18 +25,6 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/agency-template/style/custom.css" />
-
-    {GA_MEASUREMENT_ID && (
-      <>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
-        <script is:inline>
-          {`window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}');`}
-        </script>
-      </>
-    )}
   </head>
 
   <body class="overflow-hidden overflow-y-auto bg-body">
@@ -49,10 +36,8 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <SpeedInsights />
     <Footer />
 
-    <!-- Skrypt do śledzenia kliknięć i przewinięć -->
     <script type="module" src="/js/track-events.js"></script>
 
-    <!-- Motyw ciemny/jasny -->
     <script is:inline>
       {`
         detectSystemTheme();
