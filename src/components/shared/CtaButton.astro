@@ -2,6 +2,13 @@
 import Button from "./Button.astro";
 ---
 
-<Button variant={"primary"} className={"min-w-max text-white"}>
-  <a href="tel:+48503919318" class="flex relative z-[5] text-center font-bold">+48 503 919 318</a>
+<Button variant="primary" className="min-w-max text-white">
+  <a
+    href="tel:+48503919318"
+    class="flex relative z-[5] text-center font-bold"
+    data-track-button="call_button"
+    data-clicked-in="page"
+  >
+    +48 503 919 318
+  </a>
 </Button>

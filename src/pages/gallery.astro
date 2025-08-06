@@ -1,27 +1,44 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-
-// Get all images from assets/images/huts directory
-const images = await Astro.glob('../../src/assets/images/huts/*')
+const images = await Astro.glob('../../src/assets/images/huts/*');
 ---
+
 <Layout title="Galeria">
   <main class="container mx-auto px-4 py-8 mt-32">
     <div
-    class="mx-auto container my-8 sm:columns-1 md:columns-2 lg:columns-3"
-  >
-      {images.map((image) => {
-        if(image){
-        return(
-          <Image
-            src={image.default}
-            alt="Zdjęcie budy dla psa"
-            quality={50}
-class="rounded-sm mb-4 border border-transparent hover:border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg"
-            loading="lazy"
-          />
-
-      )}})}
+      class="mx-auto container my-8 sm:columns-1 md:columns-2 lg:columns-3"
+      id="gallery"
+    >
+      {images.map((image, index) => {
+        const imgSrc = image.default.src;
+        return (
+          <a
+            href={imgSrc}
+            data-pswp-width="1000"
+            data-pswp-height="800"
+            data-track-gallery-click
+            data-image-index={index}
+            data-image-src={imgSrc}
+            data-image-alt={`Zdjęcie budy dla psa ${index + 1}`}
+            class="block mb-4"
+            data-clicked-in="gallery"
+            data-vercel-event="gallery_image_click"
+          >
+            <Image
+              src={image.default}
+              alt={`Zdjęcie budy dla psa ${index + 1}`}
+              quality={60}
+              class="rounded-sm border border-transparent hover:border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg"
+              loading="lazy"
+            />
+          </a>
+        );
+      })}
     </div>
   </main>
+
+  <script type="module">
+    import('/src/scripts/photoswipe-init.js');
+  </script>
 </Layout>
