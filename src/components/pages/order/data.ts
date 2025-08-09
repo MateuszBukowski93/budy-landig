@@ -28,6 +28,18 @@ export const woodBone = {
   large: 30,
   xlarge: 30,
 };
+export const openRoof = {
+  small: 50,
+  medium: 50,
+  large: 50,
+  xlarge: 50,
+};
+export const insideBoards = {
+  small: 150,
+  medium: 150,
+  large: 150,
+  xlarge: 150,
+};
 export const deliveryOptions = [
   {
     id: "courier",
@@ -117,12 +129,19 @@ export const additionalOptionsDescriptions = {
   },
   terrace: {
     name: "Taras",
-    description:
-      "Drewniany taras przed wejściem do budy, cena zależy od rozmiaru",
+    description: "Drewniany taras przed wejściem do budy, cena zależy od rozmiaru",
   },
   woodBone: {
     name: "Drewniana kość z imieniem Twojego Psa",
-    description: "będzie wisiała nad wejściem do budy",
+    description: "Ozdobna tabliczka, która będzie wisiała nad wejściem do budy",
+  },
+  openRoof: {
+    name: "Otwierany/zdjemowany dach",
+    description: "Ułatwia czyszczenie wnętrza budy i poprawia wentylację",
+  },
+  insideBoards: {
+    name: "Deski od wewnątrz budy",
+    description: "Wykończenie wnętrza budy drewnianymi deskami dla estetyki",
   },
 };
 

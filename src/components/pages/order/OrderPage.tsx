@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { sizes, legs, isolation, curtain, terrace, woodBone, additionalOptionsDescriptions, deliveryOptions, paymentMethods } from "./data"; // Dostosuj ścieżkę
+import { sizes, legs, isolation, curtain, terrace, woodBone, openRoof, insideBoards, additionalOptionsDescriptions, deliveryOptions, paymentMethods } from "./data"; // Dostosuj ścieżkę
 
 // Importuj komponenty podrzędne
 import SizeOptions from "./SizeOptions";
@@ -72,7 +72,7 @@ const OrderPage: React.FC = () => {
   });
 
   // Stan walidacji formularza
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [formErrors, setFormErrors] = useState<Record>({});
 
   // Stan wysyłki (ładowanie, błąd)
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +81,7 @@ const OrderPage: React.FC = () => {
 
   // --- Handlery zmiany stanu ---
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleFormChange = (e: React.ChangeEvent) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -133,6 +133,16 @@ const OrderPage: React.FC = () => {
         id: "wood-bone",
         name: additionalOptionsDescriptions.woodBone.name,
         priceObj: woodBone,
+      },
+      {
+        id: "open-roof",
+        name: additionalOptionsDescriptions.openRoof.name,
+        priceObj: openRoof,
+      },
+      {
+        id: "inside-boards",
+        name: additionalOptionsDescriptions.insideBoards.name,
+        priceObj: insideBoards,
       },
     ];
 
@@ -193,7 +203,7 @@ const OrderPage: React.FC = () => {
 
   // --- Walidacja formularza ---
   const validateForm = () => {
-    const errors: Record<string, string> = {};
+    const errors: Record = {};
 
     if (!formData.firstName.trim()) errors.firstName = "Imię jest wymagane.";
     if (!formData.lastName.trim()) errors.lastName = "Nazwisko jest wymagane.";
