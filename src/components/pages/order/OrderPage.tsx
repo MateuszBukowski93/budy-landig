@@ -72,16 +72,16 @@ const OrderPage: React.FC = () => {
   });
 
   // Stan walidacji formularza
-  const [formErrors, setFormErrors] = useState<Record>({});
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
   // Stan wysyłki (ładowanie, błąd)
   const [isLoading, setIsLoading] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
-  const [submissionSuccess, setSubmissionSuccess] = useState(false); // Dodajemy stan sukcesu
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
   // --- Handlery zmiany stanu ---
 
-  const handleFormChange = (e: React.ChangeEvent) => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -201,9 +201,8 @@ const OrderPage: React.FC = () => {
     setCompanyDeliveryCost(cost);
   };
 
-  // --- Walidacja formularza ---
   const validateForm = () => {
-    const errors: Record = {};
+    const errors: Record<string, string> = {};
 
     if (!formData.firstName.trim()) errors.firstName = "Imię jest wymagane.";
     if (!formData.lastName.trim()) errors.lastName = "Nazwisko jest wymagane.";

@@ -23,13 +23,13 @@ const services = [
   {
     title: "Dodatkowe opcje",
     features: [
-      "Dodatkowa warstwa izolacyjna 100 złotych",
-      "Nóżki podnoszące budę 100 złotych",
-      "Kurtyna 50 złotych",
-      "Taras przed wejściem do budy w zależności od rozmiaru od 100 do 250 złotych",
-      "Drewniana kość z imieniem psa 30 złotych",
-      "Otwierany dach ułatwiający czyszczenie 50 złotych",
-      "Wykończenie deskami wnętrza 150 złotych",
+      "Dodatkowa warstwa izolacyjna 100zł",
+      "Nóżki podnoszące budę 100zł",
+      "Kurtyna 50zł",
+      "Taras przed wejściem do budy w zależności od rozmiaru 100zł-250zł",
+      "Drewniana kość z imieniem psa 30zł",
+      "Otwierany dach ułatwiający czyszczenie 50zł",
+      "Wykończenie deskami wnętrza 150zł",
     ],
   },
   {
@@ -38,11 +38,11 @@ const services = [
   },
   {
     title: "Dostawa",
-    features: ["Natychmiastowa Wysyłka kurierem 200 złotych", "Dowóz przez naszego pracownika 50 groszy za kilometr", "Odbiór osobisty bez dodatkowych opłat"],
+    features: ["Natychmiastowa Wysyłka kurierem 200zł", "Dowóz przez naszego pracownika 50gr za km", "Odbiór osobisty bez dodatkowych opłat"],
   },
   {
     title: "Oferty hurtowe",
-    features: ["specjalne oferty ustalane indywidualnie dla schronisk, przedsiębiorców, sklepów", "+48 511 349 499"],
+    features: ["specjalne oferty ustalane indywidualnie dla schronisk, przedsiębiorców, sklepów", "+48 533 813 007"],
   },
 ];
 
@@ -157,7 +157,7 @@ const faqs = [
 
 export const contact = {
   email: "kontakt@budapies.pl",
-  phone: "+48 503 919 318",
+  phone: "+48 533 813 007",
   address: "ul. Budowa 123, 00-000 Warszawa",
 };
 export { services, solutions, faqs };

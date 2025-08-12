@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 import { legs, isolation, curtain, terrace, woodBone, openRoof, insideBoards, additionalOptionsDescriptions } from "./data"; // Dostosuj ścieżkę, jeśli jest inna
 
+type PriceMap = Record<string, number>;
+
 // Definicja typów dla propsów
 interface AdditionalOptionsProps {
   size?: string; // Prop size, opcjonalny
@@ -10,14 +12,14 @@ interface AdditionalOptionsProps {
 }
 
 // Funkcja pomocnicza do wyświetlania ceny (może być w komponencie lub poza nim)
-function getPriceDisplay(priceObj: Record, size: string | undefined): string {
-  // Jeśli mamy rozmiar, wyświetlamy dokładną cenę dla tego rozmiaru
-  if (size && size in priceObj) {
+function getPriceDisplay(priceObj: PriceMap, size: string | undefined): string {
+  if (size && priceObj[size] !== undefined) {
     return `${priceObj[size]} zł`;
   }
 
   // W przeciwnym razie wyświetlamy zakres cen
   const prices = Object.values(priceObj);
+  if (prices.length === 0) return "—";
   // Sprawdź, czy obiekt cenowy nie jest pusty
   const minPrice = Math.min(...prices);
   const maxPrice = Math.max(...prices);
@@ -29,9 +31,7 @@ function getPriceDisplay(priceObj: Record, size: string | undefined): string {
   }
 }
 
-const AdditionalOptions: React.FC = ({ size, id, onToggleOption, selectedOptions }) => {
-  // Obliczanie dodatkowych opcji za pomocą useMemo
-
+const AdditionalOptions: React.FC<AdditionalOptionsProps> = ({ size, id, onToggleOption, selectedOptions }) => {
   const additionalOptions = useMemo(() => {
     // Sprawdzamy, czy rozmiar istnieje w danych cenowych przed próbą dostępu
     // To zapobiega błędom, jeśli np. isolation[size] byłoby undefined

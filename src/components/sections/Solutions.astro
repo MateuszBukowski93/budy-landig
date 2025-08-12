@@ -5,7 +5,7 @@ import Paragraph from "../shared/Paragraph.astro";
 import Title from "../shared/Title.astro";
 import GradiantText from "../shared/GradiantText.astro";
 import myImage from "../../assets/images/dev-with-c-1.webp";
-import { solutions } from "../../utils/data.ts";
+import { solutions } from "../../utils/data";
 
 type SolutionsProps = {
   title: string;
@@ -15,7 +15,7 @@ type SolutionsProps = {
   img: ImageMetadata;
 };
 
-export interface Props {
+interface Props {
   className?: string;
 }
 
