@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { sizes, legs, isolation, curtain, terrace, woodBone, additionalOptionsDescriptions, deliveryOptions, paymentMethods } from "./data"; // Dostosuj ścieżkę
+import { sizes, legs, isolation, curtain, terrace, woodBone, openRoof, insideBoards, additionalOptionsDescriptions, deliveryOptions, paymentMethods } from "./data"; // Dostosuj ścieżkę
 
 // Importuj komponenty podrzędne
 import SizeOptions from "./SizeOptions";
@@ -77,7 +77,7 @@ const OrderPage: React.FC = () => {
   // Stan wysyłki (ładowanie, błąd)
   const [isLoading, setIsLoading] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
-  const [submissionSuccess, setSubmissionSuccess] = useState(false); // Dodajemy stan sukcesu
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
   // --- Handlery zmiany stanu ---
 
@@ -133,6 +133,16 @@ const OrderPage: React.FC = () => {
         id: "wood-bone",
         name: additionalOptionsDescriptions.woodBone.name,
         priceObj: woodBone,
+      },
+      {
+        id: "open-roof",
+        name: additionalOptionsDescriptions.openRoof.name,
+        priceObj: openRoof,
+      },
+      {
+        id: "inside-boards",
+        name: additionalOptionsDescriptions.insideBoards.name,
+        priceObj: insideBoards,
       },
     ];
 
@@ -191,7 +201,6 @@ const OrderPage: React.FC = () => {
     setCompanyDeliveryCost(cost);
   };
 
-  // --- Walidacja formularza ---
   const validateForm = () => {
     const errors: Record<string, string> = {};
 

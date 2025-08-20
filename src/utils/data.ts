@@ -1,54 +1,35 @@
 import whyUs from "../assets/images/why-us.webp";
 import howWeDo from "../assets/images/how-we-do.webp";
 import howYouShouldBuy from "../assets/images/how-you-should.webp";
+import Title from "../components/shared/Title.astro";
 
 const services = [
   {
     title: "Mała Buda (50x60 cm)",
-    features: [
-      "Przeznaczenie: psy małe i średnie.",
-      "Zakres wagowy: do 15 kg.",
-      "Przykłady ras: jamnik, mops, shih tzu, mały kundelek.",
-      "Cena: 350zł",
-    ],
+    features: ["Przeznaczenie: psy małe i średnie.", "Zakres wagowy: do 15 kg.", "Przykłady ras: jamnik, mops, shih tzu, mały kundelek.", "Cena: 350zł"],
   },
   {
     title: "Średnia Buda (60x80 cm)",
-    features: [
-      "Przeznaczenie: psy średniej wielkości.",
-      "Zakres wagowy: 15–30 kg.",
-      "Przykłady ras: bokser, beagle, cocker spaniel, średni kundelek.",
-      "Cena: 500zł",
-    ],
+    features: ["Przeznaczenie: psy średniej wielkości.", "Zakres wagowy: 15–30 kg.", "Przykłady ras: bokser, beagle, cocker spaniel, średni kundelek.", "Cena: 500zł"],
   },
   {
     title: "Duża Buda (70x100 cm)",
-    features: [
-      "Przeznaczenie: psy duże.",
-      "Zakres wagowy: 30–45 kg.",
-      "Przykłady ras: owczarek niemiecki, golden retriever, labrador, duży kundelek.",
-      "Cena: 600zł",
-    ],
+    features: ["Przeznaczenie: psy duże.", "Zakres wagowy: 30–45 kg.", "Przykłady ras: owczarek niemiecki, golden retriever, labrador, duży kundelek.", "Cena: 600zł"],
   },
   {
     title: "Bardzo Duża Buda (90x120 cm)",
-    features: [
-      "Przeznaczenie: psy bardzo duże.",
-      "Zakres wagowy: 45 kg i więcej.",
-      "Przykłady ras: bernardyn, dog niemiecki, mastif, bardzo duży kundelek.",
-      "Cena: 800zł",
-    ],
+    features: ["Przeznaczenie: psy bardzo duże.", "Zakres wagowy: 45 kg i więcej.", "Przykłady ras: bernardyn, dog niemiecki, mastif, bardzo duży kundelek.", "Cena: 800zł"],
   },
   {
     title: "Dodatkowe opcje",
     features: [
-      "Ocieplenie 100zł",
-      "Niestandardowy kolor 50zł",
-      "kurtyna do wejścia 50zł",
-      "taras w zależności od rozmiaru 150zł-300zł",
-      "Natychmiastowa Wysyłka kurierem 200zł",
-      "Dowóz przez naszego pracownika 50gr za km",
-      "drewniana kosć z imieniem psa 30zł",
+      "Dodatkowa warstwa izolacyjna 100zł",
+      "Nóżki podnoszące budę 100zł",
+      "Kurtyna 50zł",
+      "Taras przed wejściem do budy w zależności od rozmiaru 100zł-250zł",
+      "Drewniana kość z imieniem psa 30zł",
+      "Otwierany dach ułatwiający czyszczenie 50zł",
+      "Wykończenie deskami wnętrza 150zł",
     ],
   },
   {
@@ -56,33 +37,30 @@ const services = [
     features: ["Gotówką przy odbiorze", "Przelew na konto", "Blik"],
   },
   {
+    title: "Dostawa",
+    features: ["Natychmiastowa Wysyłka kurierem 200zł", "Dowóz przez naszego pracownika 50gr za km", "Odbiór osobisty bez dodatkowych opłat"],
+  },
+  {
     title: "Oferty hurtowe",
-    features: [
-      "specjalne oferty ustalane indywidualnie dla schronisk, przedsiębiorców, sklepów",
-      "+48 511 349 499",
-    ],
+    features: ["specjalne oferty ustalane indywidualnie dla schronisk, przedsiębiorców, sklepów", "+48 533 813 007"],
   },
 ];
 
 const solutions = [
   {
     title: "Dlaczego warto kupić budę dla swojego psa?",
-    painPoint:
-      "Twój pies zasługuje na własne miejsce, które zapewni mu komfort, bezpieczeństwo i ochronę przed warunkami atmosferycznymi. ",
+    painPoint: "Twój pies zasługuje na własne miejsce, które zapewni mu komfort, bezpieczeństwo i ochronę przed warunkami atmosferycznymi. ",
     agitatepainPoint:
       "Buda to nie tylko schronienie, ale także przestrzeń, w której Twój czworonożny przyjaciel może się zrelaksować i poczuć się jak w domu. Dobra buda chroni psa przed deszczem, wiatrem, śniegiem czy nadmiernym upałem, co jest kluczowe dla jego zdrowia i dobrego samopoczucia.",
-    solution:
-      "Zapewnij swojemu psu wygodę i bezpieczeństwo, które na co dzień dają mu miłość i troskę.",
+    solution: "Zapewnij swojemu psu wygodę i bezpieczeństwo, które na co dzień dają mu miłość i troskę.",
     img: whyUs,
   },
   {
     title: "Dlaczego warto kupić budę u nas?",
-    painPoint:
-      "Nasze budy to połączenie jakości, trwałości i dbałości o potrzeby Twojego psa.",
+    painPoint: "Nasze budy to połączenie jakości, trwałości i dbałości o potrzeby Twojego psa.",
     agitatepainPoint:
       "Oferujemy modele w trzech różnych rozmiarach, dzięki czemu idealnie dopasujesz budę do wielkości swojego pupila. Wszystkie nasze produkty są wykonane z ekologicznych materiałów, które są nie tylko odporne na warunki atmosferyczne, ale także całkowicie bezpieczne dla zwierząt. Każda buda powstaje ręcznie, z najwyższą precyzją, co gwarantuje funkcjonalność i estetykę. Wierzymy, że każdy pies zasługuje na najlepsze schronienie, dlatego zapewniamy indywidualne podejście do każdego klienta, oferując możliwość personalizacji produktu..",
-    solution:
-      "Wybierając nas, wybierasz troskę o komfort i bezpieczeństwo swojego czworonożnego przyjaciela",
+    solution: "Wybierając nas, wybierasz troskę o komfort i bezpieczeństwo swojego czworonożnego przyjaciela",
     img: howYouShouldBuy,
   },
   {
@@ -97,8 +75,7 @@ const solutions = [
 const faqs = [
   {
     question: "Jak długo trwa realizacja zamówienia?",
-    answer:
-      "Standardowy czas realizacji zamówienia to 3-5 dni roboczych. W przypadku dodatkowych personalizacji może się on wydłużyć do 7-10 dni.",
+    answer: "Standardowy czas realizacji zamówienia to 3-5 dni roboczych. W przypadku dodatkowych personalizacji może się on wydłużyć do 7-10 dni.",
   },
   {
     question: "Czy budy są odporne na deszcz i inne warunki atmosferyczne?",
@@ -112,8 +89,7 @@ const faqs = [
   },
   {
     question: "Czy mogę zamówić budę w niestandardowym kolorze?",
-    answer:
-      "Tak, oferujemy możliwość malowania budy w wybranym przez klienta kolorze za dodatkową opłatą 50 zł. Prosimy o kontakt w celu ustalenia szczegółów.",
+    answer: "Tak, oferujemy możliwość malowania budy w wybranym przez klienta kolorze za dodatkową opłatą 50 zł. Prosimy o kontakt w celu ustalenia szczegółów.",
   },
   {
     question: "Jak często należy konserwować budę?",
@@ -122,44 +98,35 @@ const faqs = [
   },
   {
     question: "Czy buda posiada podłogę?",
-    answer:
-      "Tak, wszystkie nasze budy posiadają solidną, izolowaną podłogę, która chroni przed zimnem i wilgocią od podłoża.",
+    answer: "Tak, wszystkie nasze budy posiadają solidną, izolowaną podłogę, która chroni przed zimnem i wilgocią od podłoża.",
   },
   {
     question: "Czy mogę zamontować ogrzewanie w budzie?",
-    answer:
-      "Tak, nasze budy są przystosowane do montażu mat grzewczych lub innych systemów ogrzewania. Służymy doradztwem w tym zakresie.",
+    answer: "Tak, nasze budy są przystosowane do montażu mat grzewczych lub innych systemów ogrzewania. Służymy doradztwem w tym zakresie.",
   },
   {
     question: "Jakie drewno jest używane do produkcji bud?",
-    answer:
-      "Używamy wyselekcjonowanego drewna sosnowego lub świerkowego, które jest odpowiednio suszone i impregnowane, co zapewnia trwałość i bezpieczeństwo konstrukcji.",
+    answer: "Używamy wyselekcjonowanego drewna sosnowego lub świerkowego, które jest odpowiednio suszone i impregnowane, co zapewnia trwałość i bezpieczeństwo konstrukcji.",
   },
   {
     question: "Czy buda wymaga montażu po dostarczeniu?",
-    answer:
-      "Nie, dostarczamy budy w całości zmontowane, gotowe do użytkowania. Wystarczy tylko ustawić ją w wybranym miejscu.",
+    answer: "Nie, dostarczamy budy w całości zmontowane, gotowe do użytkowania. Wystarczy tylko ustawić ją w wybranym miejscu.",
   },
   {
     question: "Czy oferujecie gwarancję na swoje produkty?",
-    answer:
-      "Tak, udzielamy 24-miesięcznej gwarancji na nasze budy. Gwarancja obejmuje wady konstrukcyjne i materiałowe.",
+    answer: "Tak, udzielamy 24-miesięcznej gwarancji na nasze budy. Gwarancja obejmuje wady konstrukcyjne i materiałowe.",
   },
   {
-    question:
-      "Czy można zwrócić budę jeśli nie będzie odpowiadała naszym oczekiwaniom?",
-    answer:
-      "Tak, oferujemy 14-dniowy okres na zwrot towaru bez podania przyczyny, pod warunkiem że buda nie została uszkodzona lub zmodyfikowana.",
+    question: "Czy można zwrócić budę jeśli nie będzie odpowiadała naszym oczekiwaniom?",
+    answer: "Tak, oferujemy 14-dniowy okres na zwrot towaru bez podania przyczyny, pod warunkiem że buda nie została uszkodzona lub zmodyfikowana.",
   },
   {
     question: "Jak należy przygotować miejsce pod budę?",
-    answer:
-      "Zalecamy ustawienie budy na równym, stabilnym podłożu, najlepiej lekko podniesionym nad poziom gruntu. Może to być betonowa wylewka, kostka brukowa lub specjalne podesty.",
+    answer: "Zalecamy ustawienie budy na równym, stabilnym podłożu, najlepiej lekko podniesionym nad poziom gruntu. Może to być betonowa wylewka, kostka brukowa lub specjalne podesty.",
   },
   {
     question: "Czy ocieplenie budy jest konieczne?",
-    answer:
-      "Ocieplenie nie jest konieczne, ale zdecydowanie zalecane, szczególnie jeśli pies przebywa w budzie w okresie zimowym. Znacząco poprawia komfort termiczny zarówno zimą jak i latem.",
+    answer: "Ocieplenie nie jest konieczne, ale zdecydowanie zalecane, szczególnie jeśli pies przebywa w budzie w okresie zimowym. Znacząco poprawia komfort termiczny zarówno zimą jak i latem.",
   },
   {
     question: "Jak często należy czyścić budę?",
@@ -168,34 +135,29 @@ const faqs = [
   },
   {
     question: "Czy buda posiada wyjmowane dno do czyszczenia?",
-    answer:
-      "Tak, nasze budy są wyposażone w wyjmowane dno, co znacznie ułatwia utrzymanie czystości i przeprowadzanie regularnej konserwacji.",
+    answer: "Tak, nasze budy są wyposażone w wyjmowane dno, co znacznie ułatwia utrzymanie czystości i przeprowadzanie regularnej konserwacji.",
   },
   {
     question: "Jak chronić budę przed insektami?",
-    answer:
-      "Wszystkie nasze budy są zabezpieczane środkami odstraszającymi insekty. Dodatkowo, regularna konserwacja i czyszczenie znacząco zmniejszają ryzyko pojawienia się niepożądanych gości.",
+    answer: "Wszystkie nasze budy są zabezpieczane środkami odstraszającymi insekty. Dodatkowo, regularna konserwacja i czyszczenie znacząco zmniejszają ryzyko pojawienia się niepożądanych gości.",
   },
   {
     question: "Jakie są metody płatności?",
-    answer:
-      "Akceptujemy płatności gotówką przy odbiorze osobistym, przelewy bankowe, oraz płatności BLIK. W przypadku wysyłki kurierskiej możliwa jest również płatność za pobraniem.",
+    answer: "Akceptujemy płatności gotówką przy odbiorze osobistym, przelewy bankowe, oraz płatności BLIK. W przypadku wysyłki kurierskiej możliwa jest również płatność za pobraniem.",
   },
   {
     question: "Czy oferujecie montaż budy na miejscu?",
-    answer:
-      "W przypadku większych bud lub zamówień specjalnych oferujemy usługę montażu na miejscu. Koszt takiej usługi jest ustalany indywidualnie w zależności od lokalizacji.",
+    answer: "W przypadku większych bud lub zamówień specjalnych oferujemy usługę montażu na miejscu. Koszt takiej usługi jest ustalany indywidualnie w zależności od lokalizacji.",
   },
   {
     question: "Czy można dostosować wysokość nóżek w budzie?",
-    answer:
-      "Tak, wysokość nóżek może być dostosowana do indywidualnych potrzeb. Standardowo oferujemy nóżki o wysokości 10 cm, ale na życzenie możemy je wykonać w innym rozmiarze.",
+    answer: "Tak, wysokość nóżek może być dostosowana do indywidualnych potrzeb. Standardowo oferujemy nóżki o wysokości 10 cm, ale na życzenie możemy je wykonać w innym rozmiarze.",
   },
 ];
 
 export const contact = {
   email: "kontakt@budapies.pl",
-  phone: "+48 503 919 318",
+  phone: "+48 533 813 007",
   address: "ul. Budowa 123, 00-000 Warszawa",
 };
 export { services, solutions, faqs };

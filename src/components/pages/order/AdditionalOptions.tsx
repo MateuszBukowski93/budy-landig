@@ -1,12 +1,7 @@
 import React, { useMemo } from "react";
-import {
-  legs,
-  isolation,
-  curtain,
-  terrace,
-  woodBone,
-  additionalOptionsDescriptions,
-} from "./data"; // Dostosuj ścieżkę, jeśli jest inna
+import { legs, isolation, curtain, terrace, woodBone, openRoof, insideBoards, additionalOptionsDescriptions } from "./data"; // Dostosuj ścieżkę, jeśli jest inna
+
+type PriceMap = Record<string, number>;
 
 // Definicja typów dla propsów
 interface AdditionalOptionsProps {
@@ -17,17 +12,14 @@ interface AdditionalOptionsProps {
 }
 
 // Funkcja pomocnicza do wyświetlania ceny (może być w komponencie lub poza nim)
-function getPriceDisplay(
-  priceObj: Record<string, number>,
-  size: string | undefined
-): string {
-  // Jeśli mamy rozmiar, wyświetlamy dokładną cenę dla tego rozmiaru
-  if (size && size in priceObj) {
+function getPriceDisplay(priceObj: PriceMap, size: string | undefined): string {
+  if (size && priceObj[size] !== undefined) {
     return `${priceObj[size]} zł`;
   }
 
   // W przeciwnym razie wyświetlamy zakres cen
   const prices = Object.values(priceObj);
+  if (prices.length === 0) return "—";
   // Sprawdź, czy obiekt cenowy nie jest pusty
   const minPrice = Math.min(...prices);
   const maxPrice = Math.max(...prices);
@@ -39,37 +31,17 @@ function getPriceDisplay(
   }
 }
 
-const AdditionalOptions: React.FC<AdditionalOptionsProps> = ({
-  size,
-  id,
-  onToggleOption,
-  selectedOptions,
-}) => {
-  // Obliczanie dodatkowych opcji za pomocą useMemo
-
+const AdditionalOptions: React.FC<AdditionalOptionsProps> = ({ size, id, onToggleOption, selectedOptions }) => {
   const additionalOptions = useMemo(() => {
     // Sprawdzamy, czy rozmiar istnieje w danych cenowych przed próbą dostępu
     // To zapobiega błędom, jeśli np. isolation[size] byłoby undefined
-    const insulationPrice =
-      size && isolation[size as keyof typeof isolation] !== undefined
-        ? isolation[size as keyof typeof isolation]
-        : undefined;
-    const legsPrice =
-      size && legs[size as keyof typeof legs] !== undefined
-        ? legs[size as keyof typeof legs]
-        : undefined;
-    const curtainPrice =
-      size && curtain[size as keyof typeof curtain] !== undefined
-        ? curtain[size as keyof typeof curtain]
-        : undefined;
-    const terracePrice =
-      size && terrace[size as keyof typeof terrace] !== undefined
-        ? terrace[size as keyof typeof terrace]
-        : undefined;
-    const woodBonePrice =
-      size && woodBone[size as keyof typeof woodBone] !== undefined
-        ? woodBone[size as keyof typeof woodBone]
-        : undefined;
+    const insulationPrice = size && isolation[size as keyof typeof isolation] !== undefined ? isolation[size as keyof typeof isolation] : undefined;
+    const legsPrice = size && legs[size as keyof typeof legs] !== undefined ? legs[size as keyof typeof legs] : undefined;
+    const curtainPrice = size && curtain[size as keyof typeof curtain] !== undefined ? curtain[size as keyof typeof curtain] : undefined;
+    const terracePrice = size && terrace[size as keyof typeof terrace] !== undefined ? terrace[size as keyof typeof terrace] : undefined;
+    const woodBonePrice = size && woodBone[size as keyof typeof woodBone] !== undefined ? woodBone[size as keyof typeof woodBone] : undefined;
+    const openRoofPrice = size && openRoof[size as keyof typeof openRoof] !== undefined ? openRoof[size as keyof typeof openRoof] : undefined;
+    const insideBoardsPrice = size && insideBoards[size as keyof typeof insideBoards] !== undefined ? insideBoards[size as keyof typeof insideBoards] : undefined;
 
     // Tworzymy tablicę opcji, podobnie jak w Astro
     return [
@@ -108,20 +80,29 @@ const AdditionalOptions: React.FC<AdditionalOptionsProps> = ({
         price: woodBonePrice,
         priceDisplay: getPriceDisplay(woodBone, size),
       },
+      {
+        id: "open-roof",
+        name: additionalOptionsDescriptions.openRoof.name,
+        description: additionalOptionsDescriptions.openRoof.description,
+        price: openRoofPrice,
+        priceDisplay: getPriceDisplay(openRoof, size),
+      },
+      {
+        id: "inside-boards",
+        name: additionalOptionsDescriptions.insideBoards.name,
+        description: additionalOptionsDescriptions.insideBoards.description,
+        price: insideBoardsPrice,
+        priceDisplay: getPriceDisplay(insideBoards, size),
+      },
     ];
   }, [size]); // Zależność hooka useMemo - przeliczaj, gdy zmieni się 'size'
   return (
     <div className="mt-12" id={id}>
-      <h2 className="text-2xl font-semibold text-heading-1 mb-6">
-        Dodatkowe opcje
-      </h2>
+      <h2 className="text-2xl font-semibold text-heading-1 mb-6">Dodatkowe opcje</h2>
 
       <div className="space-y-4">
         {additionalOptions.map((option) => (
-          <label
-            key={option.id}
-            className="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer"
-          >
+          <label key={option.id} className="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-primary cursor-pointer">
             <input
               type="checkbox"
               id={option.id}
@@ -131,13 +112,9 @@ const AdditionalOptions: React.FC<AdditionalOptionsProps> = ({
             />
             <div className="ml-4 flex-grow">
               <span className="font-medium text-heading-1">{option.name}</span>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {option.description}
-              </p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">{option.description}</p>
             </div>
-            <span className="text-primary font-semibold">
-              {option.priceDisplay}
-            </span>
+            <span className="text-primary font-semibold">{option.priceDisplay}</span>
           </label>
         ))}
       </div>
