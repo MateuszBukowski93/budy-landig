@@ -7,4 +7,15 @@ export default defineConfig({
   integrations: [tailwind(),react()],
   site: "https://vbartalis.github.io",
   base: "/",
+  vite: {
+    server:{
+      proxy:{
+        '/dogapi': {
+          target: 'https://dog.ceo',
+          changeOrigin:true,
+          rewrite:(path) => path.replace(/^\/dogapi/,''),
+        },
+      },
+    },
+  },
 });
