@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Rules } from "./rules";
-import { Timer } from "./timer";
-import { Points } from "./points";
-import { EndScreen } from "./endScreen";
+import Rules from "./rules";
+import Timer  from "./timer";
+import Points from "./points";
+import EndScreen  from "./endScreen";
 import { translations } from "./translations";
 
 interface breedListResponse {
@@ -77,7 +77,7 @@ function preloadImg(url: string) {
   });
 }
 
-export default function DogImg() {
+const DogImg:React.FC<any> = () => {
   const [dogUrl, setDogUrl] = useState("");
   const [nextUrl, setNextUrl] = useState("");
   const [breed, setBreed] = useState("");

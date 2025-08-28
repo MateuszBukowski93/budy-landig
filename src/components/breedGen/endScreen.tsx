@@ -4,7 +4,7 @@ interface Props {
   setPoints: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function EndScreen({ onStart, points, setPoints }: Props) {
+const EndScreen: React.FC<Props> = ({ onStart, points, setPoints }: Props) => {
   return (
     <>
       <div className="">
@@ -41,3 +41,5 @@ export function EndScreen({ onStart, points, setPoints }: Props) {
     </>
   );
 }
+
+export default EndScreen;

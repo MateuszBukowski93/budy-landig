@@ -4,7 +4,7 @@ interface TimerProps {
   time: number;
   setTime: React.Dispatch<React.SetStateAction<number>>;
 }
-export function Timer({ time, setTime }: TimerProps) {
+const Timer: React.FC<TimerProps> = ({ time, setTime }: TimerProps) => {
   useEffect(() => {
     if (time <= 0) return;
 
@@ -24,3 +24,5 @@ export function Timer({ time, setTime }: TimerProps) {
     </div>
   );
 }
+
+export default Timer;

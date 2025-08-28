@@ -1,6 +1,6 @@
 type Props = { onStart: () => void };
 
-export function Rules({ onStart }: Props) {
+const Rules:React.FC<Props> = ({onStart})=> {
   return (
     <>
       <h1 className="text-5xl font-semibold text-black text-center st">
@@ -13,13 +13,8 @@ export function Rules({ onStart }: Props) {
       </h1>
       <div className="flex flex-col items-center space-y-8">
         <div className="text-lg mt-5">
-          <p className="mb-5 text-center">
-            Witaj miłośniku psiaków, zapraszamy cię do naszej gry "co to za
-            rasa?"
-          </p>
-
+          <p className="mb-5 text-center"> Witaj miłośniku psiaków, zapraszamy cię do naszej gry "co to za rasa?" </p>
           <p className="font-semibold flex justify-center mb-5">Zasady</p>
-
           <ul className="list-disc list-inside space-y-2 text-left">
             <li>
               Gra polega na zgadywaniu rasy psa który pojawi się na obrazku.
@@ -33,7 +28,6 @@ export function Rules({ onStart }: Props) {
               dodaje do czasu 4 sekundy, jeden punkt do sumy punktów.
             </li>
           </ul>
-
           <p className="font-semibold mt-5 text-center">Miłej rozgrywki!</p>
         </div>
         <div className="flex justify-center items-center gap-12">
@@ -42,8 +36,9 @@ export function Rules({ onStart }: Props) {
                 after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0
                 hover:after:opacity-100 hover:after:scale-[2.5]
                 bg-primary border-transparent hover:border-[#172554] after:bg-[#172554] text-white flex justify-center w-full sm:w-max"
+                onClick={onStart}
           >
-            <span className="relative z-10" onClick={onStart}>
+            <span className="relative z-10">
               Zagraj{" "}
             </span>
           </button>
@@ -67,3 +62,5 @@ export function Rules({ onStart }: Props) {
     </>
   );
 }
+
+export default Rules;
