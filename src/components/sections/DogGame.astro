@@ -1,0 +1,17 @@
+---
+import Title from "../shared/Title.astro";
+import GradiantText from "../shared/GradiantText.astro";
+import { Image } from "astro:assets";
+import DogImg from "../breedGen/dogImg";
+export interface Props {
+    className?: string;
+}
+
+const { className } = Astro.props;
+---
+
+<section id="dogGame" class = {` mx-auto py-10 md:py-16 ${className}`}>
+    <div class="mx-auto max-w-7xl w-full px-5 sm:px-8 md:px-14 lg:px-5 undefined mt-20">
+        <DogImg client:load/>
+    </div>
+</section>
