@@ -321,3 +321,4 @@ const DogImg:React.FC<any> = () => {
     </>
   );
 }
+export default DogImg
