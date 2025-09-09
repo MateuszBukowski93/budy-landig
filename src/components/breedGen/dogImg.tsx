@@ -204,9 +204,7 @@ const DogImg: React.FC<any> = () => {
             Ładowanie...
           </h1>
         </div>
-        <div
-          className={`transition-all duration-500 ease-in-out transform ${loading ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}
-        >
+        <div className={`transition-all duration-500 ease-in-out transform ${loading ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}>
           {!showGame && !endGame && <Rules onStart={startGame} disabled={disabled} />}
 
           {showGame && (
