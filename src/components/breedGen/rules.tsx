@@ -1,6 +1,6 @@
-type Props = { onStart: () => void };
+type Props = { onStart: () => void, disabled: boolean };
 
-const Rules:React.FC<Props> = ({onStart})=> {
+const Rules: React.FC<Props> = ({ onStart, disabled }) => {
   return (
     <>
       <h1 className="text-5xl font-semibold text-black text-center st">
@@ -32,11 +32,12 @@ const Rules:React.FC<Props> = ({onStart})=> {
         </div>
         <div className="flex justify-center items-center gap-12">
           <button
-            className="px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+            className={`px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
                 after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0
                 hover:after:opacity-100 hover:after:scale-[2.5]
-                bg-primary border-transparent hover:border-[#172554] after:bg-[#172554] text-white flex justify-center w-full sm:w-max"
-                onClick={onStart}
+                bg-primary border-transparent hover:border-[#172554] after:bg-[#172554] text-white flex justify-center w-full sm:w-max ${disabled ? "bg-gray-400 cursor-not-allowed" : "bg-primary border-transparent"}`}
+            onClick={onStart}
+            disabled={disabled}
           >
             <span className="relative z-10">
               Zagraj{" "}

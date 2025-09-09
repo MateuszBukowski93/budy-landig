@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Rules from "./rules";
-import Timer  from "./timer";
+import Timer from "./timer";
 import Points from "./points";
-import EndScreen  from "./endScreen";
+import EndScreen from "./endScreen";
 import { translations } from "./translations";
 
 interface breedListResponse {
@@ -77,7 +77,7 @@ function preloadImg(url: string) {
   });
 }
 
-const DogImg:React.FC<any> = () => {
+const DogImg: React.FC<any> = () => {
   const [dogUrl, setDogUrl] = useState("");
   const [nextUrl, setNextUrl] = useState("");
   const [breed, setBreed] = useState("");
@@ -94,6 +94,7 @@ const DogImg:React.FC<any> = () => {
   const [points, setPoints] = useState<number>(0);
   const [transitioning, setTransitioning] = useState(false);
   const [imageTransitioning, setImageTransitioning] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const fetchDogAndBreed = async () => {
     console.log("fetchDog wywołane!");
@@ -169,6 +170,7 @@ const DogImg:React.FC<any> = () => {
   }, [time, showGame]);
 
   const startGame = async () => {
+    setDisabled(true);
     setTransitioning(true);
     setTimeout(async () => {
       setTime(10);
@@ -179,6 +181,7 @@ const DogImg:React.FC<any> = () => {
   };
 
   const restartGame = () => {
+    setDisabled(false);
     setTransitioning(true);
     setTimeout(() => {
       setPoints(0);
@@ -202,17 +205,15 @@ const DogImg:React.FC<any> = () => {
           </h1>
         </div>
         <div
-          className={`absolute inset-0 transition-all duration-500 ease-in-out transform ${loading ? "opacity-0 pointer-events-none" : transitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}
-        ></div>
-        <div
-          className={`transition-all duration-500 ease-in-out transform ${transitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}
+          className={`transition-all duration-500 ease-in-out transform ${loading ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}
         >
-          {!showGame && !endGame && <Rules onStart={startGame} />}
+          {!showGame && !endGame && <Rules onStart={startGame} disabled={disabled} />}
 
           {showGame && (
             <>
               <button
                 onClick={() => {
+                  setDisabled(false);
                   setTransitioning(true);
                   setTimeout(() => {
                     setShowGame(false);
@@ -232,12 +233,12 @@ const DogImg:React.FC<any> = () => {
                   Co to za rasa?
                 </span>
                 <div
-                  className={`transition-all duration-500 ease-in-out transform ${imageTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}
+                  className={`relative max-w-[500px] max-h-[400px] rounded-xl overflow-hidden transition-all duration-500 ease-in-out transform ${imageTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}
                 >
                   <img
                     src={dogUrl}
                     alt="random-dog"
-                    className="w-full h-auto max-h-[400px] object-contain rounded-xl"
+                    className="object-cover"
                   />
                 </div>
                 {showGame ? (

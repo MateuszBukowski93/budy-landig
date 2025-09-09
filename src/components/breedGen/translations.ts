@@ -1,6 +1,6 @@
-export const translations:Record<string,string> = {
+export const translations: Record<string, string> = {
     "affenpinscher": "Pinczer Małpi",
-    "african": "Afrykański",
+    "african": "Likaon",
     "airedale": "Airedale Terier",
     "akita": "Akita inu",
     "appenzeller": "Appenzeller",
@@ -77,7 +77,7 @@ export const translations:Record<string,string> = {
     "mexicanhairless": "Nagi pies meksykański",
     "mix": "Mieszaniec",
     "mountain-bernese": "Berneński pies pasterski",
-    "mountain-swiss": "Szwajcarski Mountain Dog",
+    "mountain-swiss": "Szwajcarski pies pasterski",
     "mudhol-indian": "Caravan",
     "newfoundland": "Nowofundland",
     "otterhound": "Otterhound",
@@ -153,7 +153,7 @@ export const translations:Record<string,string> = {
     "terrier-toy": "Angielski Toy Terier",
     "terrier-welsh": "Terier Walijski",
     "terrier-westhighland": "West Highland Terier",
-    "terrier-wheaten": "Wheaten Terier" ,
+    "terrier-wheaten": "Wheaten Terier",
     "terrier-yorkshire": "Yorkshire Terier",
     "tervuren": "Tervuren",
     "vizsla": "Wyżeł Węgierski Krótkowłosy",
