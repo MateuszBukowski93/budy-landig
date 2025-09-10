@@ -192,6 +192,19 @@ const DogImg: React.FC<any> = () => {
     }, 400);
   };
 
+  const resetGame = () => {
+    setDisabled(false);
+    setTransitioning(true);
+    setTimeout(() => {
+      setShowGame(false);
+      setPoints(0);
+      setBreed("");
+      setDogUrl("");
+      setOptions([]);
+      setTransitioning(false);
+    }, 400);
+  }
+
   //TODO: animacje fade in oraz fade out przy końcu i początku gry.
 
   return (
@@ -210,18 +223,7 @@ const DogImg: React.FC<any> = () => {
           {showGame && (
             <>
               <button
-                onClick={() => {
-                  setDisabled(false);
-                  setTransitioning(true);
-                  setTimeout(() => {
-                    setShowGame(false);
-                    setPoints(0);
-                    setBreed("");
-                    setDogUrl("");
-                    setOptions([]);
-                    setTransitioning(false);
-                  }, 400);
-                }}
+                onClick={resetGame}
                 className="absolute top-0 right-2 rounded-2xl bg-red-600 h-12 w-12 text-center font-semibold text-white flex flex-col justify-center items-center p-2 hover:bg-red-800"
               >
                 <span className="text-white text-2xl">X</span>
