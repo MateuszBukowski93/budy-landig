@@ -235,7 +235,7 @@ const DogImg: React.FC<any> = () => {
                     <Points points={points} setPoints={setPoints} />
                   </div>
                   <div
-                    className={`order-1 sm:order-2 flex items-center justify-center relative w-full max-w-[90vw] sm:max-w-[300px] aspect-[4/3] rounded-xl overflow-hidden mb-4 sm:mb-0 transition-all duration-500 ease-in-out transform bg-red-600 ${imageTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
+                    className={`order-1 sm:order-2 flex items-center justify-center relative w-full max-w-[90vw] sm:max-w-[300px] aspect-[4/3] rounded-xl overflow-hidden mb-4 sm:mb-0 transition-all duration-500 ease-in-out transform ${imageTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
                     <img
                       src={dogUrl}
                       alt="random-dog"
