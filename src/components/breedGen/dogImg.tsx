@@ -222,7 +222,7 @@ const DogImg: React.FC<any> = () => {
             <>
               <button
                 onClick={resetGame}
-                className="absolute sm:top-0 sm:right-2 right-0 top-0 rounded-2xl bg-red-600 h-12 w-12 text-center font-semibold text-white flex flex-col justify-center items-center p-2 hover:bg-red-800"
+                className=" hidden absolute sm:top-0 sm:right-2 right-0 top-0 rounded-2xl bg-red-600 h-12 w-12 text-center font-semibold text-white sm:flex flex-col justify-center items-center p-2 hover:bg-red-800"
               >
                 <span className="text-white text-2xl">X</span>
               </button>
@@ -230,15 +230,15 @@ const DogImg: React.FC<any> = () => {
                 <span className="mb-6 font-semibold lg:text-4xl sm:text-3xl text-2xl text-center tracking-wide z-10">
                   Co to za rasa?
                 </span>
-                <div className={`relative w-full max-w-[90vw] sm:max-w-[500px] aspect-[4/3] rounded-xl overflow-hidden mb-4 sm:mb-transition-all duration-500 ease-in-out transform ${imageTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
+                <div className={`flex items-center justify-center relative w-full max-w-[90vw] sm:max-w-[500px] aspect-[4/3] rounded-xl overflow-hidden mb-4 sm:mb-transition-all duration-500 ease-in-out transform ${imageTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
                   <img
                     src={dogUrl}
                     alt="random-dog"
-                    className="object-cover w-full h-full"
+                    className="object-contain w-full h-full"
                   />
                 </div>
                 {showGame && (
-                  <div className="flex justify-between w-full max-w-[500px] sm:max-w-[600px] mt-3 mb-5 px-2 sm:px-4">
+                  <div className="flex flex-col sm:flex-row justify-between w-full max-w-[500px] sm:max-w-[600px] mt-3 mb-5 px-2 sm:px-4">
                     <Timer time={time} setTime={setTime} />
                     <Points points={points} setPoints={setPoints} />
                   </div>
@@ -284,7 +284,7 @@ const DogImg: React.FC<any> = () => {
                       }
                     }}
                   >
-                    <span className="relative z-10">
+                    <span className="relative z-10 break-words whitespace-normal text-center">
                       {i + 1}. {BreedFormat(opt)}
                       {timeChange[opt] !== undefined && (
                         <span
