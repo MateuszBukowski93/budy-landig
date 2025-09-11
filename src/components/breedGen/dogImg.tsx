@@ -230,25 +230,32 @@ const DogImg: React.FC<any> = () => {
                 <span className="mb-6 font-semibold lg:text-4xl sm:text-3xl text-2xl text-center tracking-wide z-10">
                   Co to za rasa?
                 </span>
-                <div className={`flex items-center justify-center relative w-full max-w-[90vw] sm:max-w-[500px] aspect-[4/3] rounded-xl overflow-hidden mb-4 sm:mb-transition-all duration-500 ease-in-out transform ${imageTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
-                  <img
-                    src={dogUrl}
-                    alt="random-dog"
-                    className="object-contain w-full h-full"
-                  />
-                </div>
-                {showGame && (
-                  <div className="flex flex-col sm:flex-row justify-between w-full max-w-[500px] sm:max-w-[600px] mt-3 mb-5 px-2 sm:px-4">
-                    <Timer time={time} setTime={setTime} />
+                <div className="flex flex-col sm:flex-row items-center justify-between w-full max-w-[700px] mx-auto gap">
+                  <div className=" hidden sm:flex order-2 sm:order-1">
                     <Points points={points} setPoints={setPoints} />
                   </div>
-                )}
+                  <div
+                    className={`order-1 sm:order-2 flex items-center justify-center relative w-full max-w-[90vw] sm:max-w-[300px] aspect-[4/3] rounded-xl overflow-hidden mb-4 sm:mb-0 transition-all duration-500 ease-in-out transform bg-red-600 ${imageTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
+                    <img
+                      src={dogUrl}
+                      alt="random-dog"
+                      className="object-contain w-full h-full"
+                    />
+                  </div>
+                  <div className="hidden sm:flex order-3 sm:order-3">
+                    <Timer time={time} setTime={setTime} />
+                  </div>
+                  <div className="sm:hidden order-2 flex w-full justify-between max-w-[500px]">
+                    <Points points={points} setPoints={setPoints} />
+                    <Timer time={time} setTime={setTime} />
+                  </div>
+                </div>
               </div>
               <div className="flex flex-col sm:flex-row justify-center sm:gap-6 gap-4 w-full max-w-[600px] mx-auto">
                 {options.map((opt: string, i: number) => (
                   <button
                     key={opt}
-                    className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear w-full sm:w-auto
+                    className={`px-4 sm:px-5 py-2 sm:py-3 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear w-full sm:w-auto
                             after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0
                             hover:after:opacity-100 hover:after:scale-[2.5] 
                            text-white flex justify-center items-center sm:flex-none 
