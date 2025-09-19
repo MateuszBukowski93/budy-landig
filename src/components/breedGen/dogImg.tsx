@@ -77,7 +77,7 @@ function preloadImg(url: string) {
   });
 }
 
-const DogImg: React.FC<any> = () => {
+const DogImg = () => {
   const [dogUrl, setDogUrl] = useState("");
   const [nextUrl, setNextUrl] = useState("");
   const [breed, setBreed] = useState("");
@@ -95,6 +95,7 @@ const DogImg: React.FC<any> = () => {
   const [transitioning, setTransitioning] = useState(false);
   const [imageTransitioning, setImageTransitioning] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [isMobile, setisMobile] = useState(false);
 
   const fetchDogAndBreed = async () => {
     console.log("fetchDog wywołane!");
@@ -156,6 +157,17 @@ const DogImg: React.FC<any> = () => {
   useEffect(() => {
     fetchDogAndBreed();
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setisMobile(window.innerWidth < 640);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   useEffect(() => {
     if (time <= 0 && showGame) {
@@ -243,11 +255,11 @@ const DogImg: React.FC<any> = () => {
                     />
                   </div>
                   <div className="hidden sm:flex order-3 sm:order-3">
-                    <Timer time={time} setTime={setTime} />
+                    <Timer time={time} setTime={setTime} running={!isMobile} />
                   </div>
                   <div className="sm:hidden order-2 flex w-full justify-between max-w-[500px]">
                     <Points points={points} setPoints={setPoints} />
-                    <Timer time={time} setTime={setTime} />
+                    <Timer time={time} setTime={setTime} running={isMobile} />
                   </div>
                 </div>
               </div>
