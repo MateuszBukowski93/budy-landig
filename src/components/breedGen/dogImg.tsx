@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Rules from "./rules";
-import Timer  from "./timer";
+import Timer from "./timer";
 import Points from "./points";
-import EndScreen  from "./endScreen";
+import EndScreen from "./endScreen";
 import { translations } from "./translations";
 
 interface breedListResponse {
@@ -77,7 +77,7 @@ function preloadImg(url: string) {
   });
 }
 
-const DogImg:React.FC<any> = () => {
+const DogImg: React.FC<any> = () => {
   const [dogUrl, setDogUrl] = useState("");
   const [nextUrl, setNextUrl] = useState("");
   const [breed, setBreed] = useState("");
@@ -94,6 +94,7 @@ const DogImg:React.FC<any> = () => {
   const [points, setPoints] = useState<number>(0);
   const [transitioning, setTransitioning] = useState(false);
   const [imageTransitioning, setImageTransitioning] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const fetchDogAndBreed = async () => {
     console.log("fetchDog wywołane!");
@@ -169,6 +170,7 @@ const DogImg:React.FC<any> = () => {
   }, [time, showGame]);
 
   const startGame = async () => {
+    setDisabled(true);
     setTransitioning(true);
     setTimeout(async () => {
       setTime(10);
@@ -179,6 +181,7 @@ const DogImg:React.FC<any> = () => {
   };
 
   const restartGame = () => {
+    setDisabled(false);
     setTransitioning(true);
     setTimeout(() => {
       setPoints(0);
@@ -189,72 +192,73 @@ const DogImg:React.FC<any> = () => {
     }, 400);
   };
 
+  const resetGame = () => {
+    setDisabled(false);
+    setTransitioning(true);
+    setTimeout(() => {
+      setShowGame(false);
+      setPoints(0);
+      setBreed("");
+      setDogUrl("");
+      setOptions([]);
+      setTransitioning(false);
+    }, 400);
+  }
+
   //TODO: animacje fade in oraz fade out przy końcu i początku gry.
 
   return (
     <>
-      <div className="w-full relative py-8 md:py-10 px-6 md:px-8 rounded-2xl bg-gradient-to-br from-slate-100 to-zinc-200 dark:from-slate-800 dark:to-zinc-800">
-        <div
-          className={`absolute inset-0 flex justify-center items-center transition-opacity duration-500 ease-in-out ${loading ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-        >
-          <h1 className="text-5xl font-semibold text-black animate-pulse">
+      <div className="w-full max-w-4xl mx-auto p-8 sm:p-18 relative py-8 md:py-10 px-12 md:px-16 rounded-2xl bg-gradient-to-br from-slate-100 to-zinc-200 dark:from-slate-800 dark:to-zinc-800">
+        <div className={`absolute inset-0 flex justify-center items-center transition-opacity duration-500 ease-in-out ${loading ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+          <h1 className="text-3xl sm:text-5xl font-semibold text-black animate-pulse">
             Ładowanie...
           </h1>
         </div>
-        <div
-          className={`absolute inset-0 transition-all duration-500 ease-in-out transform ${loading ? "opacity-0 pointer-events-none" : transitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}
-        ></div>
-        <div
-          className={`transition-all duration-500 ease-in-out transform ${transitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}
-        >
-          {!showGame && !endGame && <Rules onStart={startGame} />}
+        <div className={`transition-all duration-500 ease-in-out transform ${loading ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}>
+          {!showGame && !endGame && <Rules onStart={startGame} disabled={disabled} />}
 
           {showGame && (
             <>
               <button
-                onClick={() => {
-                  setTransitioning(true);
-                  setTimeout(() => {
-                    setShowGame(false);
-                    setPoints(0);
-                    setBreed("");
-                    setDogUrl("");
-                    setOptions([]);
-                    setTransitioning(false);
-                  }, 400);
-                }}
-                className="absolute top-0 right-2 rounded-2xl bg-red-600 h-12 w-12 text-center font-semibold text-white flex flex-col justify-center items-center p-2 hover:bg-red-800"
+                onClick={resetGame}
+                className=" hidden absolute sm:top-0 sm:right-2 right-0 top-0 rounded-2xl bg-red-600 h-12 w-12 text-center font-semibold text-white sm:flex flex-col justify-center items-center p-2 hover:bg-red-800"
               >
                 <span className="text-white text-2xl">X</span>
               </button>
               <div className="flex flex-col justify-center items-center mb-10">
-                <span className="mb-10 font-semibold text-3xl text-center z-10">
+                <span className="mb-6 font-semibold lg:text-4xl sm:text-3xl text-2xl text-center tracking-wide z-10">
                   Co to za rasa?
                 </span>
-                <div
-                  className={`transition-all duration-500 ease-in-out transform ${imageTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}
-                >
-                  <img
-                    src={dogUrl}
-                    alt="random-dog"
-                    className="w-full h-auto max-h-[400px] object-contain rounded-xl"
-                  />
+                <div className="flex flex-col sm:flex-row items-center justify-between w-full max-w-[700px] mx-auto gap">
+                  <div className=" hidden sm:flex order-2 sm:order-1">
+                    <Points points={points} setPoints={setPoints} />
+                  </div>
+                  <div
+                    className={`order-1 sm:order-2 flex items-center justify-center relative w-full max-w-[90vw] sm:max-w-[300px] aspect-[4/3] rounded-xl overflow-hidden mb-4 sm:mb-0 transition-all duration-500 ease-in-out transform ${imageTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
+                    <img
+                      src={dogUrl}
+                      alt="random-dog"
+                      className="object-contain w-full h-full"
+                    />
+                  </div>
+                  <div className="hidden sm:flex order-3 sm:order-3">
+                    <Timer time={time} setTime={setTime} />
+                  </div>
+                  <div className="sm:hidden order-2 flex w-full justify-between max-w-[500px]">
+                    <Points points={points} setPoints={setPoints} />
+                    <Timer time={time} setTime={setTime} />
+                  </div>
                 </div>
-                {showGame ? (
-                  <Timer time={time} setTime={setTime}></Timer>
-                ) : null}
-                {showGame ? (
-                  <Points points={points} setPoints={setPoints}></Points>
-                ) : null}
               </div>
-              <div className="text-center flex justify-center gap-24">
+              <div className="flex flex-col sm:flex-row justify-center sm:gap-6 gap-4 w-full max-w-[600px] mx-auto">
                 {options.map((opt: string, i: number) => (
                   <button
                     key={opt}
-                    className={`px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+                    className={`px-4 sm:px-5 py-2 sm:py-3 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear w-full sm:w-auto
                             after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0
-                            hover:after:opacity-100 hover:after:scale-[2.5]
-                           text-white flex justify-center w-full sm:w-max
+                            hover:after:opacity-100 hover:after:scale-[2.5] 
+                           text-white flex justify-center items-center sm:flex-none 
                             ${selected === opt ? (opt === breed ? "bg-green-600" : "bg-red-600") : "bg-primary border-transparent hover:border-[#172554] after:bg-[#172554]"}`}
                     onClick={() => {
                       if (time > 0) {
@@ -287,7 +291,7 @@ const DogImg:React.FC<any> = () => {
                       }
                     }}
                   >
-                    <span className="relative z-10">
+                    <span className="relative z-10 break-words whitespace-normal text-center">
                       {i + 1}. {BreedFormat(opt)}
                       {timeChange[opt] !== undefined && (
                         <span
